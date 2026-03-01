@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+        // Get the part of the URL the user typed after your username
+        var path = window.location.pathname.toLowerCase();
+
+        // List of variations you want to catch
+        var variations = [
+            "/missionpossible", 
+            "/mission possible", 
+            "/mp", 
+            "/mission-possible",
+            "/mission_possible"
+        ];
+
+        // Check if what they typed matches any of your "nicknames"
+        var isMatch = variations.some(function(v) {
+            return path.includes(v.replace(" ", "%20"));
+        });
+
+        if (isMatch) {
+            // Send them to the "Official" lowercase hyphenated version
+            window.location.href = "https://kineticlogiclabs.github.io/mission-possible/";
+        } else {
+            // If it's a real error, just send them to your homepage
+            window.location.href = "https://kineticlogiclabs.github.io/";
+        }
+    </script>
+</head>
+<body>
+    <p>Redirecting to Kinetic Logic Labs...</p>
+</body>
+</html>
