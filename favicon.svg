@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 50 723 755">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 824 856">
   <style>
-    /* Adaptive color logic */
+    /* Adaptive color logic for Light and Dark browser tabs */
     path { 
       fill: #000000; 
       fill-rule: evenodd; 
