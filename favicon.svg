@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 823.13 855.23">
   <style>
-    path { fill: #000000; }
+    /* fill-rule: evenodd is the secret to creating the 'holes' */
+    path { 
+      fill: #000000; 
+      fill-rule: evenodd; 
+    }
     @media (prefers-color-scheme: dark) {
       path { fill: #ffffff !important; }
     }
