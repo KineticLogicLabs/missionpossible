@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Resource, Page } from '../types';
+import { Resource } from '../types';
 
 const MODELS_3D: Resource[] = [
   {
@@ -34,10 +34,9 @@ const MODELS_3D: Resource[] = [
 
 interface Models3DProps {
   onAddToCart: (res: Resource) => void;
-  onNavigate: (page: Page) => void;
 }
 
-const Models3D: React.FC<Models3DProps> = ({ onAddToCart, onNavigate }) => {
+const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
   const [loadingId, setLoadingId] = useState<string | null>(null);
 
   const handleBuyNow = async (item: Resource) => {

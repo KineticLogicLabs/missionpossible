@@ -1,12 +1,10 @@
 
 import React from 'react';
-import { Page } from '../types';
+import { useNavigate } from 'react-router-dom';
 
-interface AboutProps {
-  onNavigate: (page: Page) => void;
-}
-
-const About: React.FC<AboutProps> = ({ onNavigate }) => {
+const About: React.FC = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="px-6 py-12 max-w-5xl mx-auto space-y-32 pb-40">
       {/* Introduction */}
@@ -84,13 +82,13 @@ const About: React.FC<AboutProps> = ({ onNavigate }) => {
         <h2 className="text-2xl md:text-4xl font-bold mb-12 tracking-tight text-black dark:text-white">Ready to start building?</h2>
         <div className="flex flex-col md:flex-row justify-center gap-6">
           <button 
-            onClick={() => onNavigate('paid')}
+            onClick={() => navigate('/models')}
             className="px-12 py-5 bg-primary dark:bg-white text-white dark:text-black font-bold rounded-2xl text-xs uppercase tracking-[0.2em] hover:opacity-90 transition-all transform hover:scale-[1.02] shadow-xl"
           >
             Shop Blueprints
           </button>
           <button 
-            onClick={() => onNavigate('free')}
+            onClick={() => navigate('/resources')}
             className="px-12 py-5 bg-transparent border border-black/10 dark:border-white/10 text-black dark:text-white font-bold rounded-2xl text-xs uppercase tracking-[0.2em] hover:border-primary transition-all"
           >
             Free Library
@@ -100,5 +98,6 @@ const About: React.FC<AboutProps> = ({ onNavigate }) => {
     </div>
   );
 };
+
 
 export default About;

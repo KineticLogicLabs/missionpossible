@@ -1,12 +1,10 @@
 
 import React from 'react';
-import { Page } from '../types';
+import { useNavigate } from 'react-router-dom';
 
-interface HomeProps {
-  onNavigate: (page: Page) => void;
-}
-
-const Home: React.FC<HomeProps> = ({ onNavigate }) => {
+const Home: React.FC = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="px-6 pb-32 max-w-7xl mx-auto overflow-hidden">
       {/* Hero Section */}
@@ -24,7 +22,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
           <div className="flex flex-wrap gap-4 pt-6">
             <button 
-              onClick={() => onNavigate('resources')}
+              onClick={() => navigate('/resources')}
               className="px-10 py-4 bg-primary text-white font-semibold text-sm rounded-xl hover:bg-primary/80 transition-all transform hover:-translate-y-0.5 shadow-xl shadow-primary/20"
             >
               Get Started Now
@@ -71,7 +69,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               Reliable building blocks for your next machine.
             </p>
           </div>
-          <button onClick={() => onNavigate('resources')} className="text-xs font-bold uppercase tracking-widest text-primary hover:text-primary/70 transition-colors pb-1 border-b border-primary/20">
+          <button onClick={() => navigate('/resources')} className="text-xs font-bold uppercase tracking-widest text-primary hover:text-primary/70 transition-colors pb-1 border-b border-primary/20">
             View Library
           </button>
         </div>
@@ -82,7 +80,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             { title: "Universal Triggers", category: "Logic", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600" },
             { title: "Timing Gears", category: "Precision", img: "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&q=80&w=600" }
           ].map((item, idx) => (
-            <div key={idx} className={`group cursor-pointer reveal reveal-delay-${idx+1}`} onClick={() => onNavigate('resources')}>
+            <div key={idx} className={`group cursor-pointer reveal reveal-delay-${idx+1}`} onClick={() => navigate('/resources')}>
               <div className="aspect-[1.5] mb-8 rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-black/5 dark:border-white/5 relative">
                 <img 
                   alt={item.title} 
@@ -103,7 +101,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
       <section className="text-center py-20 reveal">
         <h2 className="text-3xl md:text-5xl font-bold mb-10 tracking-tight text-black dark:text-white">Refine your logic today.</h2>
         <button 
-          onClick={() => onNavigate('resources')}
+          onClick={() => navigate('/resources')}
           className="px-12 py-5 bg-primary dark:bg-white text-white dark:text-black font-bold text-sm rounded-2xl hover:opacity-90 transition-all transform hover:scale-[1.02] shadow-2xl"
         >
           Explore Resources
@@ -112,5 +110,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     </div>
   );
 };
+
 
 export default Home;

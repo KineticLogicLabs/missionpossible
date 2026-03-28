@@ -1,6 +1,7 @@
 
 import React, { useState, useMemo } from 'react';
-import { Resource, Page } from '../types';
+import { useNavigate } from 'react-router-dom';
+import { Resource } from '../types';
 
 const RESOURCES: Resource[] = [
   {
@@ -35,11 +36,8 @@ const RESOURCES: Resource[] = [
 
 type Category = 'All' | '3D Files' | 'Templates' | 'Engineering Guides';
 
-interface ResourcesProps {
-  onNavigate: (page: Page) => void;
-}
-
-const Resources: React.FC<ResourcesProps> = ({ onNavigate }) => {
+const Resources: React.FC = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState<Category>('All');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -210,7 +208,7 @@ const Resources: React.FC<ResourcesProps> = ({ onNavigate }) => {
             Our 3D model library includes verified sub-assemblies and complete gearbox templates for high-stakes competition.
           </p>
           <button 
-            onClick={() => onNavigate('models')}
+            onClick={() => navigate('/models')}
             className="text-xs font-bold uppercase tracking-[0.2em] text-primary hover:text-primary/70 transition-all flex items-center justify-center gap-2 mx-auto border-b border-primary/20 pb-1"
           >
             Explore 3D Models 
@@ -221,5 +219,6 @@ const Resources: React.FC<ResourcesProps> = ({ onNavigate }) => {
     </div>
   );
 };
+
 
 export default Resources;

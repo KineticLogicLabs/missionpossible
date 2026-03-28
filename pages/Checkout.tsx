@@ -1,14 +1,15 @@
 
 import React, { useState } from 'react';
-import { CartItem, Page } from '../types';
+import { useNavigate } from 'react-router-dom';
+import { CartItem } from '../types';
 
 interface CheckoutProps {
   cart: CartItem[];
   onRemove: (id: string) => void;
-  onNavigate: (page: Page) => void;
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ cart, onRemove, onNavigate }) => {
+const Checkout: React.FC<CheckoutProps> = ({ cart, onRemove }) => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const total = cart.reduce((acc, item) => acc + (item.price || 0) * item.quantity, 0);
 
@@ -21,7 +22,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, onRemove, onNavigate }) => {
         <h2 className="text-3xl font-black mb-6 italic uppercase text-black dark:text-white">Your lab is empty</h2>
         <p className="text-black/40 dark:text-white/40 mb-12 uppercase tracking-widest text-sm">Add some premium logic modules to your project.</p>
         <button 
-          onClick={() => onNavigate('paid')}
+          onClick={() => navigate('/models')}
           className="px-12 py-5 bg-primary text-white font-black uppercase tracking-[0.2em] rounded-full hover:bg-black transition-all"
         >
           Browse Assets
@@ -142,7 +143,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, onRemove, onNavigate }) => {
               <button 
                 onClick={() => {
                   alert("Order Simulation Complete! Your assets are being delivered.");
-                  onNavigate('home');
+                  navigate('/');
                 }}
                 className="w-full py-5 bg-accent text-white font-black rounded-2xl uppercase tracking-[0.3em] text-xs hover:opacity-90 transition-all transform hover:scale-[1.02] shadow-[0_10px_30px_rgba(255,107,0,0.3)]"
               >
