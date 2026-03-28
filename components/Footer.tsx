@@ -1,26 +1,25 @@
 
 import React from 'react';
-import { Page } from '../types';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 
 interface FooterProps {
-  onNavigate: (page: Page) => void;
   isDarkMode: boolean;
   toggleTheme: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onNavigate, isDarkMode, toggleTheme }) => {
+const Footer: React.FC<FooterProps> = ({ isDarkMode, toggleTheme }) => {
   return (
     <footer className="bg-neutral-50 dark:bg-black border-t border-black/5 dark:border-white/5 pt-16 pb-12 px-8 transition-colors">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Brand */}
         <div className="space-y-6">
-          <div 
-            onClick={() => onNavigate('home')}
+          <Link 
+            to="/"
             className="flex items-center cursor-pointer group w-fit"
           >
             <Logo className="h-6 w-auto" />
-          </div>
+          </Link>
           <p className="text-[11px] leading-relaxed text-black/40 dark:text-slate-500 uppercase tracking-wider italic border-l-2 border-primary/30 dark:border-primary/30 pl-4">
             Kinetic Logic Labs is an independent educational resource provider. Not officially affiliated with Science Olympiad, Inc.
           </p>
@@ -30,15 +29,15 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, isDarkMode, toggleTheme }) 
         <div className="grid grid-cols-2 gap-8 md:justify-items-center">
           <div className="flex flex-col gap-4">
             <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/70">Explore</h4>
-            <button onClick={() => onNavigate('home')} className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Home</button>
-            <button onClick={() => onNavigate('resources')} className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Resources</button>
-            <button onClick={() => onNavigate('models')} className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">3D Models</button>
+            <Link to="/" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Home</Link>
+            <Link to="/resources" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Resources</Link>
+            <Link to="/models" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">3D Models</Link>
           </div>
           <div className="flex flex-col gap-4">
             <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/70">Support</h4>
-            <button onClick={() => onNavigate('about')} className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">About Us</button>
-            <button onClick={() => onNavigate('privacy')} className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Privacy</button>
-            <button onClick={() => onNavigate('terms')} className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Terms</button>
+            <Link to="/about" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">About Us</Link>
+            <Link to="/privacy" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Privacy</Link>
+            <Link to="/terms" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Terms</Link>
           </div>
         </div>
 
@@ -69,5 +68,6 @@ const Footer: React.FC<FooterProps> = ({ onNavigate, isDarkMode, toggleTheme }) 
     </footer>
   );
 };
+
 
 export default Footer;
