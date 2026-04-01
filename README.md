@@ -1,20 +1,34 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+Mission Possible: Kinetic Logic Labs
+Welcome to the official repository for Mission Possible resources by Kinetic Logic Labs. This site is a dedicated hub for Science Olympiad competitors and engineering enthusiasts looking to master the art of the Rube Goldberg machine.
 
-# Run and deploy your AI Studio app
+🚀 Visit the Site: kineticlogiclabs.github.io/missionpossible
 
-This contains everything you need to run your app locally.
+🛠 Project Overview
+This project provides a comprehensive toolkit for designing, building, and documenting high-scoring Mission Possible devices. Specifically tailored for the 2026 Science Olympiad season, the resources here focus on precision engineering, reliable action sequences, and optimized 3D-printed components.
 
-View your app in AI Studio: https://ai.studio/apps/e2f6260e-aa13-4336-a006-5731a3eea2b2
+✨ Features
+📐 Science Olympiad Resources
 
-## Run Locally
+2026 Task Guides: Detailed breakdowns of the "Quarter Start" and "Golf Ball Pendulum End" requirements.
 
-**Prerequisites:**  Node.js
+ASL Templates: Customizable Action Sequence List (ASL) templates that meet official formatting standards.
 
+Design Log Frameworks: Organized materials lists and diagram templates to ensure full points during inspection.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Action Optimization: Technical guides on implementing required scorable actions, including Archimedes screws, complex lever combinations (2nd/3rd class), and inclined plane mass transfers.
+
+🖨 3D Models & CAD
+
+Modular Components: STL files for high-precision simple machines (pulleys, gears, and wedges) optimized for high-speed 3D printing.
+
+Bambu Lab Optimized: Print profiles specifically tuned for Bambu Lab P1S and similar high-speed hardware to ensure dimensional accuracy.
+
+Kinematic Logic: CAD designs that integrate physics-based constraints to minimize variability in your device's run time.
+
+🧪 Physics & Engineering
+
+Calculation Sheets: Excel and Python-based tools for calculating Ideal Mechanical Advantage (IMA) and timing sequences.
+
+Sand Timer Calibration: Resources for designing and testing consistent 30+ second bonus timers.
+
+Reliability Testing: Strategies for "set-and-forget" machine stability to avoid human intervention penalties.
