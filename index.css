@@ -1,1 +1,50 @@
 /* Global styles */
+
+/* Custom Scrollbar - Sleek & Industrial */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F3F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(51, 51, 51, 0.15);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(45, 140, 255, 0.4);
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(51, 51, 51, 0.15) #F1F3F5;
+}
+
+/* Lemon Squeezy Integration - Background Effects */
+body.checkout-active #root {
+  filter: blur(12px) brightness(0.7) grayscale(30%);
+  user-select: none;
+  pointer-events: none;
+  transition: filter 0.5s ease, brightness 0.5s ease;
+}
+
+body.checkout-active::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  z-index: 9998;
+  pointer-events: none;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

@@ -9,6 +9,7 @@ import Models3D from './pages/Models3D';
 import About from './pages/About';
 import Checkout from './pages/Checkout';
 import Legal from './pages/Legal';
+import LabNotes from './pages/LabNotes';
 import { CartItem, Resource } from './types';
 
 // ScrollToTop component to handle scroll reset on route change
@@ -68,23 +69,35 @@ const AnimationHandler: React.FC = () => {
 
 const AppContent: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem('theme');
-    return saved ? saved === 'dark' : true;
-  });
   const location = useLocation();
 
   useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
-      localStorage.setItem('theme', 'light');
+    // Initialize Lemon Squeezy event handler for blur effect
+    const setupLS = () => {
+      const LS = (window as any).LemonSqueezy;
+      if (LS) {
+        LS.Setup({
+          eventHandler: (event: any) => {
+            if (event.event === 'Checkout.Opened') {
+              document.body.classList.add('checkout-active');
+            } else if (event.event === 'Checkout.Closed') {
+              document.body.classList.remove('checkout-active');
+            }
+          }
+        });
+        return true;
+      }
+      return false;
+    };
+
+    const isSetup = setupLS();
+    if (!isSetup) {
+      const timer = setInterval(() => {
+        if (setupLS()) clearInterval(timer);
+      }, 500);
+      return () => clearInterval(timer);
     }
-  }, [isDarkMode]);
+  }, []);
 
   const addToCart = (resource: Resource) => {
     setCart(prev => {
@@ -99,18 +112,15 @@ const AppContent: React.FC = () => {
   };
 
   const shouldShowNavbarCart = cart.length > 0;
-  const shouldShowFloatingCart = cart.length > 0 && location.pathname === '/models';
 
   return (
-    <div className="flex flex-col min-h-screen selection:bg-primary selection:text-white bg-white dark:bg-black">
+    <div className="flex flex-col min-h-screen selection:bg-primary/30 selection:text-[#333333]">
       <ScrollToTop />
       <AnimationHandler />
       
       <Navbar 
         cartCount={cart.length}
         showCart={shouldShowNavbarCart}
-        isDarkMode={isDarkMode}
-        toggleTheme={() => setIsDarkMode(!isDarkMode)}
       />
       
       <main className="flex-grow pt-24 md:pt-36">
@@ -119,6 +129,7 @@ const AppContent: React.FC = () => {
           <Route path="/resources" element={<Resources />} />
           <Route path="/models" element={<Models3D onAddToCart={addToCart} />} />
           <Route path="/about" element={<About />} />
+          <Route path="/lab-notes" element={<LabNotes />} />
           <Route path="/checkout" element={<Checkout cart={cart} onRemove={removeFromCart} />} />
           <Route path="/privacy" element={<Legal type="privacy" />} />
           <Route path="/terms" element={<Legal type="terms" />} />
@@ -126,22 +137,8 @@ const AppContent: React.FC = () => {
         </Routes>
       </main>
 
-      <Footer 
-        isDarkMode={isDarkMode}
-        toggleTheme={() => setIsDarkMode(!isDarkMode)}
-      />
+      <Footer />
       
-      {shouldShowFloatingCart && (
-        <a 
-          href="#/checkout"
-          className="fixed bottom-6 right-6 w-16 h-16 bg-accent text-white rounded-full flex items-center justify-center shadow-2xl active:scale-90 transition-transform z-50 animate-bounce"
-        >
-          <span className="material-icons text-2xl">shopping_cart</span>
-          <span className="absolute -top-1 -right-1 bg-white text-black text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full border-2 border-accent">
-            {cart.length}
-          </span>
-        </a>
-      )}
     </div>
   );
 };
