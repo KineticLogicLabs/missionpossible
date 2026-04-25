@@ -1,73 +1,72 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 
-interface FooterProps {
-  isDarkMode: boolean;
-  toggleTheme: () => void;
-}
-
-const Footer: React.FC<FooterProps> = ({ isDarkMode, toggleTheme }) => {
+const Footer: React.FC = () => {
   return (
-    <footer className="bg-neutral-50 dark:bg-black border-t border-black/5 dark:border-white/5 pt-16 pb-12 px-8 transition-colors">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+    <footer className="bg-white border-t border-gray-200 pt-16 pb-12 px-8 relative overflow-hidden">
+      <div className="absolute inset-0 bg-graph-paper opacity-30 pointer-events-none"></div>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
         {/* Brand */}
         <div className="space-y-6">
           <Link 
             to="/"
             className="flex items-center cursor-pointer group w-fit"
           >
-            <Logo className="h-6 w-auto" />
+            <Logo className="h-10 w-auto" />
           </Link>
-          <p className="text-[11px] leading-relaxed text-black/40 dark:text-slate-500 uppercase tracking-wider italic border-l-2 border-primary/30 dark:border-primary/30 pl-4">
-            Kinetic Logic Labs is an independent educational resource provider. Not officially affiliated with Science Olympiad, Inc.
-          </p>
+          <div className="space-y-4">
+            <p className="text-[11px] leading-relaxed text-[#333333] opacity-70 font-sans">
+              Kinetic Logic Labs is an independent educational resource provider. Not officially affiliated with Science Olympiad, Inc.
+            </p>
+            <div className="flex items-center gap-2 text-xs font-sans text-[#333333] opacity-70">
+                <span className="material-icons text-[16px]">mail</span>
+                <a href="mailto:kineticlogiclabs@gmail.com" className="hover:text-primary transition-colors hover:underline">kineticlogiclabs@gmail.com</a>
+            </div>
+          </div>
         </div>
 
         {/* Links */}
         <div className="grid grid-cols-2 gap-8 md:justify-items-center">
           <div className="flex flex-col gap-4">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/70">Explore</h4>
-            <Link to="/" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Home</Link>
-            <Link to="/resources" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Resources</Link>
-            <Link to="/models" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">3D Models</Link>
+            <h4 className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#333333] mb-2 border-b border-gray-200 pb-2">Explore</h4>
+            <Link to="/" className="text-[#333333] opacity-70 text-xs font-sans hover:text-primary hover:opacity-100 transition-colors">Home</Link>
+            <Link to="/about" className="text-[#333333] opacity-70 text-xs font-sans hover:text-primary hover:opacity-100 transition-colors">About</Link>
+            <Link to="/resources" className="text-[#333333] opacity-70 text-xs font-sans hover:text-primary hover:opacity-100 transition-colors">Resources</Link>
+            <Link to="/lab-notes" className="text-[#333333] opacity-70 text-xs font-sans hover:text-primary hover:opacity-100 transition-colors">Lab Notes</Link>
+            <Link to="/models" className="text-[#333333] opacity-70 text-xs font-sans hover:text-primary hover:opacity-100 transition-colors">3D Models</Link>
           </div>
           <div className="flex flex-col gap-4">
-            <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/70">Support</h4>
-            <Link to="/about" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">About Us</Link>
-            <Link to="/privacy" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Privacy</Link>
-            <Link to="/terms" className="text-black/40 dark:text-white/40 text-[11px] uppercase tracking-widest font-bold hover:text-primary dark:hover:text-white text-left">Terms</Link>
+            <h4 className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#333333] mb-2 border-b border-gray-200 pb-2">Legal</h4>
+            <Link to="/privacy" className="text-[#333333] opacity-70 text-xs font-sans hover:text-primary hover:opacity-100 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="text-[#333333] opacity-70 text-xs font-sans hover:text-primary hover:opacity-100 transition-colors">Terms of Use</Link>
           </div>
         </div>
 
-        {/* Theme Toggle / Copyright */}
-        <div className="flex flex-col items-start md:items-end gap-6">
+        {/* Action / Copyright */}
+        <div className="flex flex-col items-start md:items-end gap-6 border-t md:border-t-0 md:border-l border-gray-200 pt-6 md:pt-0 md:pl-12">
           <a 
             href="https://kineticlogiclabs.github.io" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="px-6 py-3 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-primary hover:text-white transition-all flex items-center gap-2"
+            className="px-6 py-3 bg-white border border-gray-200 text-[#333333] text-[10px] font-sans font-bold tracking-wider rounded-sm hover:border-primary hover:text-primary transition-all flex items-center gap-2 shadow-sm uppercase"
           >
-            <span className="material-icons text-sm">open_in_new</span>
-            Visit Main Site
+            <span className="material-icons text-[14px]">open_in_new</span>
+            Main Site
           </a>
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-black/60 dark:text-white/60 hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-2"
-            aria-label="Toggle Theme"
-          >
-            <span className="material-icons">{isDarkMode ? 'light_mode' : 'dark_mode'}</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
-          </button>
-          <div className="text-right">
-            <p className="text-black/20 dark:text-white/20 text-[9px] uppercase tracking-[0.3em]">© 2026 Kinetic Logic Labs</p>
+          
+          <div className="text-left md:text-right space-y-3 pt-4">
+            <p className="text-[#333333] text-[10px] font-sans font-bold tracking-wider uppercase">© 2026 Kinetic Logic Labs</p>
+            <div className="text-[#333333] opacity-50 text-[10px] font-mono leading-relaxed space-y-1">
+              <p>VERSION: 2.0.4</p>
+              <p>LICENSE: CC BY-NC-SA 4.0</p>
+              <p className="font-sans opacity-80 mt-1 max-w-[240px] md:ml-auto">Attribution-NonCommercial-ShareAlike: Remix, adapt, and build upon the work non-commercially with credit.</p>
+            </div>
           </div>
         </div>
       </div>
     </footer>
   );
 };
-
 
 export default Footer;
