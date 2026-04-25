@@ -42,14 +42,8 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
   const handleBuyNow = async (item: Resource) => {
     setLoadingId(item.id);
     
-    // NOTE: In a production environment, you would hit your backend API here.
-    // Example: const response = await fetch('/api/create-checkout-session', { ... });
-    // const session = await response.json();
-    // window.location.href = session.url;
-    
     console.log(`Initiating Stripe Checkout for: ${item.title}`);
     
-    // Simulating API call delay
     setTimeout(() => {
       alert(`Stripe Checkout Redirect: In a live app, you would now be redirected to Stripe's hosted checkout page for ${item.title} ($${item.price}).`);
       setLoadingId(null);
@@ -57,59 +51,60 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
   };
 
   return (
-    <div className="px-6 py-12 max-w-7xl mx-auto pb-40">
-      <div className="text-center mb-24 reveal">
-        <h1 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight text-black dark:text-white">
-          3D Models
+    <div className="px-6 py-12 max-w-7xl mx-auto pb-40 relative z-10">
+      <div className="text-center mb-20 reveal border-b border-gray-200 pb-12">
+        <div className="flex justify-center mb-6">
+             <span className="font-mono text-primary font-bold text-[10px] tracking-[0.2em] uppercase border border-primary/20 px-3 py-1 rounded-sm bg-primary/5">
+                Premium Schematics
+             </span>
+        </div>
+        <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 tracking-wide text-[#333333] uppercase">
+          Premium <span className="text-primary border-b-[6px] border-primary/20 pb-2 inline-block leading-none">Schematics</span>
         </h1>
-        <p className="text-black/40 dark:text-white/40 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
-          High-performance 3D models designed for the final stages of your mission build. All transactions are handled securely via Stripe.
+        <p className="text-[#333333] opacity-80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-normal pt-4">
+          High-performance 3D models designed for the final stages of your mission build. All transactions are handled securely via Lemon Squeezy.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {MODELS_3D.map((item, idx) => (
-          <div key={item.id} className={`bg-neutral-50 dark:bg-card-dark border border-black/5 dark:border-white/5 rounded-[2.5rem] overflow-hidden flex flex-col group hover:border-primary/20 transition-all reveal reveal-delay-${idx}`}>
-            <div className="relative h-72 overflow-hidden bg-neutral-200 dark:bg-neutral-900/50">
+          <div key={item.id} className={`bg-white border border-gray-200 shadow-sm p-4 flex flex-col group transition-all reveal reveal-delay-${idx} hover:border-primary/50 hover:shadow-md rounded-sm`}>
+            <div className="relative h-64 overflow-hidden bg-gray-100 border border-gray-200 mb-6 rounded-sm">
+              <div className="absolute inset-0 bg-graph-paper opacity-30 z-0 pointer-events-none"></div>
               <img 
                 alt={item.title} 
-                className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-all duration-1000 dark:grayscale dark:group-hover:grayscale-0" 
+                className="w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform duration-700 mix-blend-multiply relative z-10" 
                 src={item.imageUrl} 
               />
-              <div className="absolute top-6 left-6">
-                <span className="bg-primary/20 text-primary text-[9px] font-bold px-3 py-1.5 rounded-full border border-primary/20 uppercase tracking-widest shadow-xl backdrop-blur-md">
+              <div className="absolute top-4 left-4 z-20">
+                <span className="bg-white text-[#333333] text-[9px] font-mono font-bold px-2 py-1 border border-gray-200 uppercase tracking-widest shadow-sm rounded-sm">
                   {item.type}
                 </span>
               </div>
             </div>
             
-            <div className="p-10 flex flex-col flex-grow">
-              <div className="flex justify-between items-start mb-6">
-                <h3 className="text-2xl font-bold group-hover:text-primary transition-colors text-black dark:text-white">{item.title}</h3>
-                <span className="text-xl font-bold text-black dark:text-white">${item.price}</span>
+            <div className="flex flex-col flex-grow px-2 pb-2">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-2xl font-serif font-bold text-[#333333] grow pr-4 leading-tight group-hover:text-primary transition-colors tracking-wide uppercase">{item.title}</h3>
+                <span className="text-lg font-mono font-bold text-[#333333] border border-gray-200 px-2 py-1 bg-gray-50 rounded-sm">${item.price}</span>
               </div>
-              <p className="text-black/50 dark:text-white/50 text-sm leading-relaxed mb-10 flex-grow">{item.description}</p>
+              <p className="text-[#333333] opacity-70 text-sm leading-relaxed mb-8 flex-grow font-normal">{item.description}</p>
               
               <div className="space-y-3">
-                <button 
-                  onClick={() => handleBuyNow(item)}
-                  disabled={loadingId === item.id}
-                  className="w-full py-4 bg-accent text-white font-black rounded-2xl flex items-center justify-center gap-3 hover:bg-black transition-all shadow-xl shadow-accent/10 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-xs"
+                <a 
+                  href="https://kineticlogiclabs.lemonsqueezy.com/checkout/buy/d420d96a-4821-4173-824f-4fd694d0a214?embed=1"
+                  className="lemonsqueezy-button w-full py-4 bg-primary text-white font-sans text-xs font-bold tracking-wider uppercase rounded-sm flex items-center justify-center gap-2 hover:bg-blue-600 transition-all shadow-sm active:scale-95 border border-primary"
                 >
-                  {loadingId === item.id ? (
-                    <span className="animate-spin material-icons">sync</span>
-                  ) : (
-                    <span className="material-icons text-lg">shopping_bag</span>
-                  )}
-                  {loadingId === item.id ? 'Connecting...' : 'Buy Now'}
-                </button>
+                  <span className="material-icons text-[16px]">account_balance_wallet</span>
+                  Initialize Purchase
+                </a>
 
                 <button 
                   onClick={() => onAddToCart(item)}
-                  className="w-full py-4 bg-transparent border border-black/10 dark:border-white/10 text-black dark:text-white font-bold rounded-2xl flex items-center justify-center gap-3 hover:border-primary transition-all active:scale-95 text-xs uppercase tracking-widest"
+                  className="w-full py-4 bg-white border border-gray-200 text-[#333333] font-sans text-xs font-bold tracking-wider uppercase rounded-sm flex items-center justify-center gap-2 hover:bg-gray-50 transition-all active:scale-95 shadow-sm hover:border-gray-300"
                 >
-                  <span className="material-icons text-lg">add_shopping_cart</span>
-                  Add to Project
+                  <span className="material-icons text-[16px]">add</span>
+                  Save to Local
                 </button>
               </div>
             </div>

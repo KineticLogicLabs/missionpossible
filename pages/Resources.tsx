@@ -1,224 +1,263 @@
-
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Resource } from '../types';
 
-const RESOURCES: Resource[] = [
+interface Section {
+  id: string;
+  title: string;
+  content: React.ReactNode;
+}
+
+interface Phase {
+  id: number;
+  title: string;
+  icon: string;
+  sections: Section[];
+}
+
+const EngineeringNote: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="my-8 p-6 bg-primary/5 border border-primary/20 relative group reveal rounded-sm">
+    <div className="absolute top-0 right-0 p-2 opacity-50 group-hover:opacity-100 transition-opacity">
+        <span className="font-mono text-[9px] text-primary font-bold uppercase tracking-widest">Process Note</span>
+    </div>
+    <div className="flex items-center gap-2 mb-3">
+      <span className="material-icons text-primary text-[16px]">lightbulb</span>
+      <span className="text-primary font-mono font-bold uppercase tracking-widest text-[10px]">Engineering Log</span>
+    </div>
+    <div className="text-[#333333] opacity-80 text-sm font-normal leading-relaxed font-sans">
+      {children}
+    </div>
+  </div>
+);
+
+const PHASES: Phase[] = [
   {
-    id: 'f1',
-    title: 'Universal Trigger V2',
-    description: 'Adjustable sensitivity hair-trigger mechanism. Optimized for FDM printing with no supports required.',
-    type: 'STL',
-    imageUrl: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=600'
+    id: 1,
+    title: 'Strategy',
+    icon: 'insights',
+    sections: [
+      {
+        id: 'rulebook',
+        title: 'Rulebook Decoder',
+        content: (
+          <div className="space-y-6">
+            <p className="font-normal text-[#333333] opacity-80 text-lg">The first step to winning Mission Possible is not building; it's reading. The rulebook contains hidden constraints that define the ceiling of your score.</p>
+            <h2 className="text-2xl font-serif font-bold mt-8 mb-4 text-[#333333] border-b border-gray-200 pb-2 uppercase tracking-wide">Key Constraints</h2>
+            <ul className="list-none pl-0 space-y-4 text-[#333333] opacity-80 font-normal">
+              <li className="flex gap-4 border-l-2 border-primary/30 pl-4">
+                <span className="font-mono text-[10px] font-bold text-primary tracking-widest uppercase mt-1">C.01</span>
+                <span>Dimensions: 60cm x 60cm x 60cm is the absolute limit. Build to 58cm to account for measurement error.</span>
+              </li>
+              <li className="flex gap-4 border-l-2 border-primary/30 pl-4">
+                <span className="font-mono text-[10px] font-bold text-primary tracking-widest uppercase mt-1">C.02</span>
+                <span>Start/End Actions: Must be clearly visible and distinct from intermediate steps.</span>
+              </li>
+              <li className="flex gap-4 border-l-2 border-primary/30 pl-4">
+                <span className="font-mono text-[10px] font-bold text-primary tracking-widest uppercase mt-1">C.03</span>
+                <span>Timing: The target time is your best friend or your worst enemy.</span>
+              </li>
+            </ul>
+            <EngineeringNote>
+              Hindsight: We lost 40 points at Regionals because our "Start" action was partially obscured by a support pillar. Always prioritize visibility over compact design.
+            </EngineeringNote>
+          </div>
+        )
+      },
+      {
+        id: 'points',
+        title: 'Points Matrix',
+        content: (
+          <div className="space-y-6">
+            <p className="font-normal text-[#333333] opacity-80 text-lg">Not all actions are created equal. Use this matrix to prioritize high-value mechanical logic over complex but low-scoring steps.</p>
+            <div className="overflow-x-auto relative mt-8">
+              <div className="absolute inset-0 bg-graph-paper opacity-30 z-0 pointer-events-none"></div>
+              <table className="w-full border-collapse border border-gray-300 relative z-10 bg-white shadow-sm rounded-sm">
+                <thead>
+                  <tr className="bg-gray-100 border-b border-gray-300">
+                    <th className="p-4 text-left font-mono text-[10px] font-bold text-[#333333] uppercase tracking-widest">Action Type</th>
+                    <th className="p-4 text-left font-mono text-[10px] font-bold text-[#333333] uppercase tracking-widest">Difficulty</th>
+                    <th className="p-4 text-left font-mono text-[10px] font-bold text-[#333333] uppercase tracking-widest">Points</th>
+                  </tr>
+                </thead>
+                <tbody className="text-sm font-mono text-[#333333]">
+                  <tr className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <td className="p-4 uppercase tracking-wider">Chem to Mech</td>
+                    <td className="p-4 text-red-500 font-bold uppercase tracking-wider">High</td>
+                    <td className="p-4 font-bold">50</td>
+                  </tr>
+                  <tr className="hover:bg-gray-50 transition-colors">
+                    <td className="p-4 uppercase tracking-wider">Elec to Grav</td>
+                    <td className="p-4 text-primary font-bold uppercase tracking-wider">Med</td>
+                    <td className="p-4 font-bold">30</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )
+      },
+      { id: 'action', title: 'Action Selection', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Choose actions that you can replicate 100 times without failure. Complexity is the enemy of reliability.</p> },
+      { id: 'roadmap', title: 'Season Roadmap', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Week 1-2: Prototyping. Week 3-4: Frame Construction. Week 5-8: Integration and Testing.</p> },
+    ]
   },
   {
-    id: 'f2',
-    title: 'Modular Ramp System',
-    description: 'Configurable ramp system for precise timing control and reliable object transition.',
-    type: 'STEP',
-    imageUrl: 'https://images.unsplash.com/photo-1530124560676-587cad91244f?auto=format&fit=crop&q=80&w=600'
+    id: 2,
+    title: 'Architecture',
+    icon: 'architecture',
+    sections: [
+      { id: 'zoning', title: 'Spatial Zoning', content: (
+          <div className="space-y-6">
+            <p className="font-normal text-[#333333] opacity-80 text-lg">Divide your 60cm cube into functional zones. Keep heavy components at the bottom for stability.</p>
+            <EngineeringNote>
+              Hindsight: We once placed a heavy lead-acid battery on a middle shelf. The machine wobbled during a high-speed trigger, causing a 0.5s timing drift. Always keep the center of gravity as low as possible.
+            </EngineeringNote>
+          </div>
+        ) },
+      { id: 'frame', title: 'Frame Fundamentals', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Use T-slot aluminum or 1/2" plywood. Rigidity is non-negotiable for timing consistency.</p> },
+      { id: 'path', title: 'Path of Travel', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Map out the flow of energy. Avoid crossing paths to prevent accidental triggers.</p> },
+      { id: 'cable', title: 'Cable Management', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Use zip ties and labels. A messy machine is a machine that fails during impound.</p> },
+    ]
   },
   {
-    id: 'f3',
-    title: 'Action Log Template',
-    description: 'Pre-formatted documentation template for tracking machine steps and timing requirements.',
-    type: 'PDF',
-    imageUrl: 'https://images.unsplash.com/photo-1454165833767-027ffea10cc3?auto=format&fit=crop&q=80&w=600'
+    id: 3,
+    title: 'Fabrication',
+    icon: 'precision_manufacturing',
+    sections: [
+      { id: 'cad', title: 'CAD to Physical', content: (
+          <div className="space-y-6">
+            <p className="font-normal text-[#333333] opacity-80 text-lg">Model everything in Onshape or Fusion 360 before cutting. Measure twice, print once.</p>
+            <EngineeringNote>
+              Hindsight: 3D prints are rarely the exact size of the CAD model. Always print a "tolerance test" block before committing to a 12-hour print for a critical gearbox.
+            </EngineeringNote>
+          </div>
+        ) },
+      { id: 'tolerances', title: 'Tolerances and Fit', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Account for 3D print shrinkage. Use 0.2mm clearance for moving parts.</p> },
+      { id: 'bambu', title: 'Bambu P1S Optimization', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Use PETG for structural parts. 4 walls, 20% gyroid infill for maximum strength-to-weight.</p> },
+      { id: 'hardware', title: 'Hardware Integration', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Standardize on M3 and M4 bolts. Keep a kit of spares in your pit box.</p> },
+    ]
   },
   {
-    id: 'f4',
-    title: 'Step Logic Guide',
-    description: 'A comprehensive guide on sequencing Mission Possible actions to maximize efficiency.',
-    type: 'PDF',
-    imageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=600'
+    id: 4,
+    title: 'Reliability',
+    icon: 'verified',
+    sections: [
+      { id: 'buffers', title: 'Timing Buffers', content: (
+          <div className="space-y-6">
+            <p className="font-normal text-[#333333] opacity-80 text-lg">Build in adjustable delays. Use sand timers or slow-moving gears to fine-tune your final time.</p>
+            <EngineeringNote>
+              Hindsight: Never rely on a single "perfect" run. Your machine will run differently in a cold gym than in your warm basement. Mechanical buffers are easier to adjust on the fly than redesigning a gear train.
+            </EngineeringNote>
+          </div>
+        ) },
+      { id: 'logs', title: 'Calibration Logs', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Record every run. Note temperature and humidity—they affect friction more than you think.</p> },
+      { id: 'troubleshooting', title: 'Troubleshooting Flowcharts', content: <p className="font-normal text-[#333333] opacity-80 text-lg">If Step A fails, check Trigger B. Create a "If-Then" guide for your team.</p> },
+      { id: 'environmental', title: 'Environmental Adjustments', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Be ready for the competition floor. It might be uneven or drafty.</p> },
+    ]
+  },
+  {
+    id: 5,
+    title: 'Competition',
+    icon: 'emoji_events',
+    sections: [
+      { id: 'tsl', title: 'TSL Mastery', content: <p className="font-normal text-[#333333] opacity-80 text-lg">The Technical Score Log is half the battle. Use our automated generator to ensure 0 penalties.</p> },
+      { id: 'reset', title: '2-Minute Reset', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Practice resetting your machine under pressure. Use a checklist to ensure no steps are skipped.</p> },
+      { id: 'pit', title: 'The Pit Kit', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Superglue, duct tape, extra batteries, and a soldering iron. If it can break, it will.</p> },
+      { id: 'impound', title: 'Impound Survival Guide', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Once you impound, you can't touch it. Ensure all triggers are locked and safe for transport.</p> },
+    ]
   }
 ];
 
-type Category = 'All' | '3D Files' | 'Templates' | 'Engineering Guides';
-
 const Resources: React.FC = () => {
-  const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState<Category>('All');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [activePhaseId, setActivePhaseId] = useState<number | null>(null);
 
-  // Sequential character matching logic
-  const isOrderedMatch = (query: string, target: string) => {
-    // Normalize both: remove spaces and lowercase
-    const s = query.toLowerCase().replace(/\s/g, '');
-    const t = target.toLowerCase().replace(/\s/g, '');
-    
-    if (!s) return true;
-    
-    let sIdx = 0;
-    for (let tIdx = 0; tIdx < t.length && sIdx < s.length; tIdx++) {
-      if (t[tIdx] === s[sIdx]) {
-        sIdx++;
-      }
-    }
-    return sIdx === s.length;
+  const activePhase = PHASES.find(p => p.id === activePhaseId);
+
+  const handlePhaseSelect = (id: number) => {
+    setActivePhaseId(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Memoize filtered results
-  const filtered = useMemo(() => {
-    return RESOURCES.filter(r => {
-      const matchesSearch = isOrderedMatch(searchTerm, r.title);
-      
-      let matchesCategory = true;
-      if (activeCategory === '3D Files') {
-          matchesCategory = ['STL', 'STEP'].includes(r.type);
-      } else if (activeCategory === 'Templates') {
-          matchesCategory = r.title.toLowerCase().includes('template');
-      } else if (activeCategory === 'Engineering Guides') {
-          matchesCategory = r.title.toLowerCase().includes('guide');
-      }
-
-      return matchesSearch && matchesCategory;
-    });
-  }, [searchTerm, activeCategory]);
-
-  const categories: Category[] = ['All', '3D Files', 'Templates', 'Engineering Guides'];
-
-  return (
-    <div className="px-6 py-12 max-w-5xl mx-auto pb-40">
-      <div className="mb-12 text-center lg:text-left reveal">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-8 text-black dark:text-white">
-          Resources
-        </h1>
-        <p className="text-black/40 dark:text-white/40 text-base md:text-lg max-w-xl leading-relaxed">
-          Open-source assets for rapid machine assembly. These modules are built for reliability and ease of modification.
-        </p>
-      </div>
-
-      {/* Search and Filter bar */}
-      <div className="flex flex-col md:flex-row gap-4 mb-20 reveal reveal-delay-1 items-stretch relative z-[60]">
-        <div className="relative flex-grow">
-          <span className="material-icons absolute left-5 top-1/2 -translate-y-1/2 text-primary opacity-50">search</span>
-          <input 
-            type="text"
-            placeholder="Search components (e.g. 'utr' for Universal Trigger)..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-neutral-100 dark:bg-card-dark border border-black/5 dark:border-white/5 rounded-2xl py-5 pl-14 pr-6 text-sm font-medium focus:outline-none focus:border-primary/50 transition-all placeholder:text-black/20 dark:placeholder:text-white/20 text-black dark:text-white"
-          />
+  if (!activePhaseId) {
+    return (
+      <div className="px-6 py-12 max-w-6xl mx-auto pb-40 relative z-10">
+        <div className="mb-20 text-center reveal border-b border-gray-200 pb-12">
+            <div className="flex justify-center mb-6">
+                <span className="font-mono text-primary text-[10px] tracking-[0.2em] uppercase border border-primary/20 px-3 py-1 rounded bg-primary/5">
+                    Resource Index
+                </span>
+            </div>
+          <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-wide uppercase mb-6 text-[#333333]">
+            The <span className="text-primary border-b-[6px] border-primary/20 pb-2 inline-block leading-none">Roadmap</span>
+          </h1>
+          <p className="text-[#333333] opacity-80 text-lg md:text-xl font-normal max-w-2xl mx-auto leading-relaxed pt-4">
+            A phase-based engineering framework for Science Olympiad Mission Possible. 
+            Select a phase to enter the lab.
+          </p>
         </div>
 
-        {/* Dropdown Filter */}
-        <div className="relative min-w-[200px]">
-          <button 
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="w-full h-full bg-neutral-100 dark:bg-card-dark border border-black/5 dark:border-white/5 rounded-2xl px-6 py-5 md:py-0 flex items-center justify-between text-sm font-bold uppercase tracking-widest text-black/80 dark:text-white/80 hover:border-primary/30 transition-all group"
-          >
-            <span className="flex items-center gap-2">
-              <span className="material-icons text-primary text-xl">filter_list</span>
-              {activeCategory}
-            </span>
-            <span className={`material-icons transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`}>expand_more</span>
-          </button>
-
-          {/* Dropdown Menu */}
-          <div className={`absolute top-full left-0 right-0 mt-2 z-[70] bg-white dark:bg-card-dark border border-black/10 dark:border-white/5 rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 origin-top ${isDropdownOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => {
-                  setActiveCategory(cat);
-                  setIsDropdownOpen(false);
-                }}
-                className={`w-full text-left px-6 py-4 text-xs font-bold uppercase tracking-widest transition-colors border-b border-black/5 dark:border-white/5 last:border-0 ${activeCategory === cat ? 'bg-primary text-white' : 'text-black/40 dark:text-white/40 hover:bg-neutral-50 dark:hover:bg-white/5 hover:text-black dark:hover:text-white'}`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32 relative z-10">
-          {filtered.map((item) => (
-            <div key={item.id} className={`bg-neutral-50 dark:bg-card-dark border border-black/5 dark:border-white/5 rounded-3xl overflow-hidden group hover:border-primary/20 transition-all flex flex-col h-full reveal`}>
-              <div className="aspect-video relative overflow-hidden bg-neutral-200 dark:bg-neutral-900/50">
-                <img 
-                  alt={item.title} 
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-all duration-700 dark:grayscale dark:group-hover:grayscale-0" 
-                  src={item.imageUrl} 
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-white/80 dark:bg-black/80 backdrop-blur-md text-primary text-[9px] font-bold px-3 py-1 border border-primary/20 uppercase tracking-widest rounded-full">
-                    .{item.type}
-                  </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal reveal-delay-1">
+          {PHASES.map((phase) => (
+            <button
+              key={phase.id}
+              onClick={() => handlePhaseSelect(phase.id)}
+              className="group relative bg-white border border-gray-200 p-8 text-left hover:border-primary/50 transition-all overflow-hidden shadow-sm flex flex-col rounded-sm"
+            >
+              <div className="absolute inset-0 bg-graph-paper opacity-30 z-0 pointer-events-none"></div>
+              <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <span className="material-icons text-8xl">{phase.icon}</span>
+              </div>
+              <div className="relative z-10 flex-grow">
+                <span className="font-mono text-primary font-bold text-[10px] uppercase tracking-widest mb-4 inline-block border border-primary/20 bg-primary/5 px-2 py-1 rounded-sm">Phase 0{phase.id}</span>
+                <h3 className="text-2xl font-serif font-bold mb-4 text-[#333333] group-hover:text-primary transition-colors tracking-wide uppercase">{phase.title}</h3>
+                <div className="space-y-2 mb-8">
+                  {phase.sections.map(s => (
+                      <p key={s.id} className="text-[#333333] opacity-70 text-[11px] font-mono leading-relaxed truncate tracking-widest flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 bg-primary/50 rounded-sm"></span> {s.title}
+                      </p>
+                  ))}
                 </div>
               </div>
-              <div className="p-10 flex flex-col flex-grow">
-                <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors text-black dark:text-white">{item.title}</h3>
-                <p className="text-black/40 dark:text-white/40 text-sm leading-relaxed mb-10 flex-grow font-normal">{item.description}</p>
-                <button className="w-full py-4 px-6 border border-black/10 dark:border-white/10 hover:border-primary text-black dark:text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-3">
-                  <span className="material-icons text-lg">download</span>
-                  Access Blueprint
-                </button>
+              <div className="flex items-center gap-2 text-primary font-mono text-[10px] font-bold uppercase tracking-widest mt-auto group-hover:tracking-[0.2em] transition-all">
+                Initialize Phase <span className="material-icons text-[14px]">arrow_forward</span>
               </div>
-            </div>
+            </button>
+          ))}
+          
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="px-6 py-12 max-w-4xl mx-auto relative z-10">
+        <button 
+          onClick={() => setActivePhaseId(null)}
+          className="flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-wider text-[#333333] hover:text-primary mb-12 transition-colors border border-gray-200 px-4 py-2 bg-white rounded-sm shadow-sm"
+        >
+          <span className="material-icons text-[16px]">arrow_back</span>
+          Back to Index
+        </button>
+
+        <div className="mb-20 border-b border-gray-200 pb-12">
+          <span className="font-mono text-primary font-bold text-[10px] uppercase tracking-widest mb-4 inline-block border border-primary/20 bg-primary/5 px-2 py-1 rounded-sm">Phase 0{activePhase.id}</span>
+          <h1 className="text-5xl md:text-6xl lg:text-[80px] font-serif font-bold tracking-wide uppercase text-[#333333] mb-6">
+            {activePhase.title}
+          </h1>
+        </div>
+
+        <div className="space-y-24 pb-40">
+          {activePhase.sections.map((section) => (
+            <section key={section.id} id={section.id} className="reveal">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-[#333333] tracking-wide uppercase border-l-4 border-primary pl-4">
+                {section.title}
+              </h2>
+              <div className="pl-5">
+                {section.content}
+              </div>
+            </section>
           ))}
         </div>
-      ) : (
-        /* Empty State with Suggestions */
-        <div className="py-20 text-center reveal border border-dashed border-black/10 dark:border-white/10 rounded-[3rem] bg-neutral-50/50 dark:bg-white/[0.02]">
-          <div className="mb-8 inline-flex flex-col items-center">
-            <span className="material-icons text-6xl text-primary/20 mb-4">search_off</span>
-            <h2 className="text-2xl font-bold text-black dark:text-white mb-2 uppercase tracking-tight">Logic Fault: 0 Results</h2>
-            <p className="text-black/40 dark:text-white/40 text-sm max-w-xs mx-auto italic">
-              No components match the sequence "{searchTerm}" in the current category.
-            </p>
-          </div>
-
-          <div className="max-w-md mx-auto space-y-6 px-6">
-             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/60 mb-4">Recommended Assets</p>
-             <div className="flex flex-wrap justify-center gap-3">
-                {RESOURCES.slice(0, 3).map((res) => (
-                  <button 
-                    key={res.id}
-                    onClick={() => setSearchTerm(res.title)}
-                    className="px-5 py-3 bg-white dark:bg-neutral-900 border border-black/5 dark:border-white/10 rounded-xl text-[11px] font-bold uppercase tracking-widest text-black/60 dark:text-white/60 hover:text-primary hover:border-primary/30 transition-all flex items-center gap-2 shadow-sm"
-                  >
-                    <span className="material-icons text-sm opacity-50">auto_fix_high</span>
-                    {res.title}
-                  </button>
-                ))}
-             </div>
-             
-             <div className="pt-8">
-               <button 
-                onClick={() => {setActiveCategory('All'); setSearchTerm('');}}
-                className="text-primary text-[11px] font-black uppercase tracking-[0.3em] border-b-2 border-primary/20 pb-1 hover:border-primary transition-all"
-               >
-                System Reset
-               </button>
-             </div>
-          </div>
-        </div>
-      )}
-      
-      {/* Premium Bridge */}
-      <section className="bg-primary/5 border border-primary/10 rounded-[2.5rem] p-12 md:p-20 text-center reveal mt-20">
-        <div className="max-w-xl mx-auto">
-          <span className="material-icons text-primary text-4xl mb-6">workspace_premium</span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-black dark:text-white">Need 3D Models?</h2>
-          <p className="text-black/50 dark:text-white/50 mb-10 text-sm leading-relaxed font-normal">
-            Our 3D model library includes verified sub-assemblies and complete gearbox templates for high-stakes competition.
-          </p>
-          <button 
-            onClick={() => navigate('/models')}
-            className="text-xs font-bold uppercase tracking-[0.2em] text-primary hover:text-primary/70 transition-all flex items-center justify-center gap-2 mx-auto border-b border-primary/20 pb-1"
-          >
-            Explore 3D Models 
-            <span className="material-icons text-sm">arrow_forward</span>
-          </button>
-        </div>
-      </section>
     </div>
   );
 };
-
 
 export default Resources;
