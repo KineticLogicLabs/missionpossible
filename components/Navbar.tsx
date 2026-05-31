@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
+import { Search } from 'lucide-react';
 import Logo from './Logo';
+import { SearchModal } from './SearchModal';
 
 interface NavbarProps {
   cartCount: number;
@@ -11,6 +13,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const navLinks = [
     { label: 'Home', path: '/' },
@@ -48,6 +51,14 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
           ))}
           
           <div className="flex items-center gap-4 pl-4 ml-2 border-l border-gray-200 h-6">
+            <button 
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 text-[#333333] hover:text-primary transition-colors flex items-center justify-center border border-transparent hover:border-gray-200 rounded"
+              title="Search"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+
             {showCart && cartCount > 0 && (
               <Link 
                 to="/checkout"
@@ -61,25 +72,36 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
         </div>
 
         {/* Mobile Menu Trigger */}
-        <div className="flex md:hidden items-center gap-4">
+        <div className="flex md:hidden items-center gap-3 relative z-50">
+          <button 
+            onClick={() => setIsSearchOpen(true)}
+            className="p-1 px-2 text-[#333333] hover:text-primary transition-colors focus:outline-none flex items-center justify-center transition-transform active:scale-95"
+            title="Search"
+          >
+            <Search className="w-5.5 h-5.5 stroke-[1.8]" />
+          </button>
+
           {showCart && cartCount > 0 && (
             <Link 
               to="/checkout"
-              className="relative p-2 text-primary transition-colors flex items-center gap-1 border border-primary/20 rounded bg-white shadow-sm"
+              className="relative p-1 text-primary transition-colors flex items-center gap-1 active:scale-95"
             >
-              <span className="material-icons text-[16px]">shopping_cart</span>
+              <span className="material-icons text-[18px]">shopping_cart</span>
               <span className="font-mono text-[10px] font-bold">[{cartCount}]</span>
             </Link>
           )}
+
+          {/* Elegant Divider */}
+          <div className="h-5 w-[1px] bg-gray-200 self-center mx-1" />
           
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="w-10 h-10 flex flex-col justify-center items-center gap-[4px] focus:outline-none group border border-gray-200 bg-white shadow-sm relative z-50 rounded-sm"
+            className="p-1 px-2 flex flex-col justify-center items-center gap-[5px] focus:outline-none group transition-transform active:scale-95"
             aria-label="Toggle Menu"
           >
-            <span className={`block h-[1px] w-[18px] bg-[#333333] transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-[5px]' : ''}`}></span>
-            <span className={`block h-[1px] w-[18px] bg-[#333333] transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`block h-[1px] w-[18px] bg-[#333333] transition-transform duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-[5px]' : ''}`}></span>
+            <span className={`block h-[2px] w-5 bg-[#333333] transition-transform duration-300 rounded-sm ${isMenuOpen ? 'rotate-45 translate-y-[7px]' : ''}`}></span>
+            <span className={`block h-[2px] w-5 bg-[#333333] transition-opacity duration-300 rounded-sm ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`block h-[2px] w-5 bg-[#333333] transition-transform duration-300 rounded-sm ${isMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`}></span>
           </button>
         </div>
       </div>
@@ -121,6 +143,12 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
               ))}
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isSearchOpen && (
+          <SearchModal onClose={() => setIsSearchOpen(false)} />
         )}
       </AnimatePresence>
     </nav>

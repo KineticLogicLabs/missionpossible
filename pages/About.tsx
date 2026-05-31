@@ -18,59 +18,39 @@ const About: React.FC = () => {
           <span className="text-primary border-b-[6px] border-primary/20 pb-2 inline-block leading-none">site for?</span>
         </h1>
         <p className="text-[#333333] opacity-80 text-lg md:text-xl font-normal leading-relaxed max-w-2xl">
-          Kinetic Logic Labs is a dedicated platform for competitors tackling the Science Olympiad Mission Possible event. We bridge the gap between simple machines and professional mechanical automation.
+          Kinetic Logic Labs is a dedicated platform for competitors tackling the Science Olympiad Mission Possible event. It's basically like Duosmium, but for Mission Possible. Well... not really.
         </p>
       </section>
 
-      {/* Purpose Blocks */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="reveal reveal-delay-1 border border-gray-200 p-12 bg-white shadow-sm relative group overflow-hidden rounded-sm">
-          <div className="absolute inset-0 bg-graph-paper opacity-30 z-0 pointer-events-none"></div>
-          <div className="absolute top-0 right-0 p-3">
-             <span className="font-mono text-[9px] text-[#333333] opacity-40 font-bold uppercase tracking-widest">Section 01</span>
-          </div>
-          <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-10">
-                <div className="w-12 h-12 border border-gray-200 bg-white flex items-center justify-center rounded-sm">
-                <span className="material-symbols-outlined text-primary text-2xl">hub</span>
-                </div>
-                <h2 className="text-2xl font-serif font-bold tracking-wide text-[#333333] uppercase">The Vision</h2>
-            </div>
-            <div className="space-y-10">
-                <div>
-                <h3 className="text-primary font-mono text-xs font-bold tracking-widest mb-3 uppercase">Technical Rigor</h3>
-                <p className="text-[#333333] opacity-70 text-base leading-relaxed font-normal">
-                    We believe in detailed schematics and engineering principles over guesswork. Every blueprint is mathematically verified for reliable action under competitive pressure.
-                </p>
-                </div>
-                <div className="pt-8 border-t border-gray-200">
-                <h3 className="text-primary font-mono text-xs font-bold tracking-widest mb-3 uppercase">Consistency First</h3>
-                <p className="text-[#333333] opacity-70 text-base leading-relaxed font-normal">
-                    In Mission Possible, complexity is the enemy. We prioritize robust systems that trigger with 100% repeatability, ensuring your machine performs when it matters most.
-                </p>
-                </div>
-            </div>
-          </div>
+      {/* The Creator Section */}
+      <section className="reveal pb-12 border-b border-gray-200 flex flex-col items-end text-right">
+        <div className="mb-6 flex items-center gap-2 text-primary font-mono text-[10px] tracking-widest uppercase font-bold justify-end">
+          The Creator
+          <span className="w-8 h-[1px] bg-primary"></span>
         </div>
+        <div className="max-w-2xl space-y-6">
+          <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#333333] uppercase leading-none tracking-wide">
+            The Creator
+          </h2>
+          
+          <div className="ml-auto w-full max-w-md aspect-[16/10] bg-gray-50 border border-gray-200 rounded-sm overflow-hidden flex items-center justify-center p-2 relative group shadow-sm">
+            <div className="absolute inset-0 bg-graph-paper opacity-30 z-0 pointer-events-none"></div>
+            <div className="absolute top-2 right-2 font-mono text-[9px] text-[#333333]/40">CREATOR_PROFILE_01</div>
+            <img 
+              src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600"
+              alt="Creator portrait placeholder" 
+              className="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply group-hover:scale-102 transition-transform duration-500 rounded-sm relative z-10"
+              referrerPolicy="no-referrer"
+            />
+          </div>
 
-        <div className="reveal reveal-delay-2 border border-primary/20 p-12 bg-primary/5 shadow-sm relative group flex flex-col justify-center text-center rounded-sm">
-          <div className="absolute top-0 left-0 p-3">
-             <span className="font-mono text-[9px] text-primary opacity-50 font-bold uppercase tracking-widest">Section 02</span>
-          </div>
-          <div className="mb-10">
-            <div className="w-20 h-20 border border-primary/30 rounded-full flex items-center justify-center mx-auto mb-6 bg-white">
-              <span className="material-symbols-outlined text-4xl text-primary">construction</span>
-            </div>
-            <h2 className="text-2xl font-serif font-bold tracking-wide text-[#333333] uppercase">The Creator</h2>
-          </div>
-          <p className="text-[#333333] opacity-90 text-lg leading-relaxed mb-10 font-sans italic">
-            "I founded Kinetic Logic Labs after years of competing and coaching. I wanted to build the repository of high-level resources I wish I had as a student starting out."
+          <p className="text-[#333333] opacity-80 text-base md:text-lg leading-relaxed font-normal">
+            As a competitor and mechanical designer, my mission is to share the insights and designs gathered from extensive building and testing. This repository represents hundreds of prototype iterations and competitive run experiences.
           </p>
-          <div className="flex items-center gap-4 justify-center">
-            <div className="h-[1px] w-12 bg-primary/30"></div>
-            <span className="text-[10px] font-mono text-primary font-bold uppercase tracking-widest">Kinetic Logic Labs Founder</span>
-            <div className="h-[1px] w-12 bg-primary/30"></div>
-          </div>
+          
+          <p className="text-[#333333] opacity-70 text-sm font-mono uppercase tracking-wider">
+            Engineering & Logic Design Lead // Science Olympiad Builder
+          </p>
         </div>
       </section>
 

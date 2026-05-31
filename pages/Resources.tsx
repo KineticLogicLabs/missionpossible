@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 interface Section {
   id: string;
@@ -168,6 +168,50 @@ const PHASES: Phase[] = [
 
 const Resources: React.FC = () => {
   const [activePhaseId, setActivePhaseId] = useState<number | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle deep-linking from search query or route state
+  useEffect(() => {
+    // 1. Try route state (passed if navigated via react-router search select)
+    if (location.state) {
+      const state = location.state as { phaseId?: number, sectionId?: string };
+      if (state.phaseId) {
+        setActivePhaseId(state.phaseId);
+
+        if (state.sectionId) {
+          setTimeout(() => {
+            const el = document.getElementById(state.sectionId!);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 300);
+        }
+        return;
+      }
+    }
+
+    // 2. Fallback: Parse URL search query params
+    const searchParams = new URLSearchParams(location.search);
+    const phaseParam = searchParams.get('phase');
+    const sectionParam = searchParams.get('section');
+    
+    if (phaseParam) {
+      const phaseId = parseInt(phaseParam, 10);
+      if (!isNaN(phaseId) && phaseId >= 1 && phaseId <= 5) {
+        setActivePhaseId(phaseId);
+
+        if (sectionParam) {
+          setTimeout(() => {
+            const el = document.getElementById(sectionParam);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 300);
+        }
+      }
+    }
+  }, [location]);
 
   const activePhase = PHASES.find(p => p.id === activePhaseId);
 
