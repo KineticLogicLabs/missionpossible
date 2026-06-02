@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
           to="/"
           className="flex items-center cursor-pointer group transition-transform duration-300 ease-out active:scale-95"
         >
-          <Logo className="h-10 md:h-12 lg:h-14 w-auto" />
+          <Logo className="h-9 md:h-10 lg:h-11 w-auto" />
         </Link>
 
         {/* Desktop Nav */}

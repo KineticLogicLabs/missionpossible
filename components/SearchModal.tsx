@@ -71,11 +71,6 @@ export const SearchModal: React.FC<SearchModalProps> = ({ onClose }) => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-    // Lock scrolling on document body
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, []);
 
   useEffect(() => {
