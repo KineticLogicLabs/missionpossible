@@ -218,8 +218,8 @@ const Home: React.FC = () => {
               Reliable building blocks for your next machine.
             </p>
           </div>
-          <button onClick={() => navigate('/resources')} className="text-primary font-sans text-sm font-bold tracking-wider hover:text-blue-600 transition-colors flex items-center gap-2 group w-fit uppercase border border-transparent hover:border-primary px-3 py-2 rounded-sm bg-white">
-            Explore Resources
+          <button onClick={() => navigate('/models')} className="text-primary font-sans text-sm font-bold tracking-wider hover:text-blue-600 transition-colors flex items-center gap-2 group w-fit uppercase border border-transparent hover:border-primary px-3 py-2 rounded-sm bg-white">
+            3D Models
             <span className="material-icons text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
           </button>
         </div>
@@ -230,7 +230,7 @@ const Home: React.FC = () => {
             { title: "Universal Triggers", category: "LOGIC", spec: "[FUSION]", img: "https://images.unsplash.com/photo-1531284895878-7897897c1c5c?auto=format&fit=crop&q=80&w=600" },
             { title: "Timing Mechanisms", category: "PRECISION", spec: "[PDF]", img: "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&q=80&w=600" }
           ].map((item, idx) => (
-            <div key={idx} className={`group cursor-pointer reveal reveal-delay-${idx+1} bg-white border border-gray-200 shadow-sm hover:border-primary/50 hover:shadow-md transition-all p-4 rounded-sm`} onClick={() => navigate('/resources')}>
+            <div key={idx} className={`group cursor-pointer reveal reveal-delay-${idx+1} bg-white border border-gray-200 shadow-sm hover:border-primary/50 hover:shadow-md transition-all p-4 rounded-sm`} onClick={() => navigate('/models')}>
               <div className="aspect-[4/3] mb-6 overflow-hidden bg-gray-100 relative border border-gray-200 rounded-sm">
                 <div className="absolute inset-0 bg-graph-paper opacity-30 z-0 pointer-events-none"></div>
                 <img 
