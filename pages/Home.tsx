@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'motion/react';
 import imageAward1 from '../src/assets/images/regenerated_image_1779731088971.png';
 import imageAward2 from '../src/assets/images/regenerated_image_1779817291298.jpg';
 
@@ -11,18 +12,87 @@ const Home: React.FC = () => {
     <div className="px-6 pb-32 max-w-7xl mx-auto overflow-hidden">
       {/* Hero Section */}
       <section className="flex flex-col lg:flex-row items-center gap-16 mb-32 lg:py-20 relative">
-        <div className="flex-1 space-y-8 reveal z-10">
+        <div className="flex-1 space-y-8 z-10">
           <div>
             <h1 className="font-serif font-bold text-5xl md:text-7xl lg:text-[80px] tracking-wide leading-[1.05] mb-8 text-[#333333] uppercase">
-              Science Olympiad <br/>
-              <span className="text-primary border-b-[6px] border-primary/20 pb-2 inline-block leading-none">Mission Possible</span> <br/>
-              Resources
+              <span className="inline-block mr-3 md:mr-4">
+                <motion.span
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block"
+                >
+                  Science
+                </motion.span>
+              </span>
+              <span className="inline-block">
+                <motion.span
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block"
+                >
+                  Olympiad
+                </motion.span>
+              </span>
+              <br/>
+              <span className="text-primary relative pb-2 inline-block leading-none">
+                <span className="inline-block mr-3 md:mr-4">
+                  <motion.span
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-block"
+                  >
+                    Mission
+                  </motion.span>
+                </span>
+                <span className="inline-block">
+                  <motion.span
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                    className="inline-block"
+                  >
+                    Possible
+                  </motion.span>
+                </span>
+                {/* Animated Blue Underline */}
+                <motion.span
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ originX: 0 }}
+                  className="absolute bottom-0 left-0 w-[80%] h-[6px] bg-primary/20 rounded-full"
+                />
+              </span>
+              <br/>
+              <span className="inline-block">
+                <motion.span
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block"
+                >
+                  Resources
+                </motion.span>
+              </span>
             </h1>
-            <p className="text-[#333333] opacity-80 text-lg md:text-xl max-w-xl leading-relaxed font-normal">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.55, ease: "easeOut" }}
+              className="text-[#333333] opacity-80 text-lg md:text-xl max-w-xl leading-relaxed font-normal"
+            >
               Actual tested components and resources by a Science Olympiad competitor to help others achieve high standards through engineering and problem-solving.
-            </p>
+            </motion.p>
           </div>
-          <div className="flex flex-wrap gap-4 pt-4">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.55, ease: "easeOut" }}
+            className="flex flex-wrap gap-4 pt-4"
+          >
             <button 
               onClick={() => navigate('/resources')}
               className="px-8 py-4 bg-primary text-white font-sans font-bold text-sm rounded-sm shadow-sm hover:bg-blue-600 transition-all flex items-center gap-2 tracking-wider uppercase border border-primary hover:border-blue-600"
@@ -30,10 +100,15 @@ const Home: React.FC = () => {
               Explore Resources
               <span className="material-icons text-sm">arrow_forward</span>
             </button>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="flex-1 w-full relative reveal reveal-delay-2 lg:-ml-20">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.0, delay: 0.55, ease: "easeOut" }}
+          className="flex-1 w-full relative lg:-ml-20"
+        >
           {/* Technical Draft Image Overlay */}
           <div className="relative aspect-[4/3] rounded-sm bg-white border border-gray-200 shadow-md p-2">
             <div className="absolute inset-0 bg-graph-paper opacity-50 z-0 pointer-events-none"></div>
@@ -43,12 +118,12 @@ const Home: React.FC = () => {
               src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" 
             />
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Championship Accolades - Moved under Hero Section */}
-      <section className="mb-32 py-16 reveal">
-        <div className="text-center mb-16">
+      <section className="mb-32 py-16">
+        <div className="text-center mb-16 reveal">
           <h2 className="text-3xl md:text-5xl font-serif font-bold text-[#333333] uppercase tracking-wide">
             Proven Performance
           </h2>
@@ -60,7 +135,7 @@ const Home: React.FC = () => {
             href="https://www.duosmium.org/results/2026-04-18_WA_states_b/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white border border-gray-200 p-8 flex flex-col justify-between shadow-sm rounded-sm relative group hover:border-primary hover:shadow-md transition-all duration-300 block cursor-pointer"
+            className="reveal bg-white border border-gray-200 p-8 flex flex-col justify-between shadow-sm rounded-sm relative group hover:border-primary hover:shadow-md transition-all duration-300 block cursor-pointer"
           >
             
             <div className="space-y-4 mb-8">
@@ -88,7 +163,7 @@ const Home: React.FC = () => {
             href="https://www.duosmium.org/results/2026-05-22_nationals_b/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white border border-gray-200 p-8 flex flex-col justify-between shadow-sm rounded-sm relative group hover:border-primary hover:shadow-md transition-all duration-300 block cursor-pointer"
+            className="reveal reveal-delay-2 bg-white border border-gray-200 p-8 flex flex-col justify-between shadow-sm rounded-sm relative group hover:border-primary hover:shadow-md transition-all duration-300 block cursor-pointer"
           >
 
             <div className="space-y-4 mb-8">

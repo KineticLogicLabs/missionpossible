@@ -18,7 +18,7 @@ const About: React.FC = () => {
           <span className="text-primary border-b-[6px] border-primary/20 pb-2 inline-block leading-none">site for?</span>
         </h1>
         <p className="text-[#333333] opacity-80 text-lg md:text-xl font-normal leading-relaxed max-w-2xl">
-          Kinetic Logic Labs is a dedicated platform for competitors tackling the Science Olympiad Mission Possible event. It's basically like Duosmium, but for Mission Possible. Well... not really.
+          Kinetic Logic Labs is a dedicated platform for competitors tackling the Science Olympiad Mission Possible event. It includes a variety of resources for students, including 3D models of an award-winning nationals Mission Possible device, advice from a former Mission Possible competitor, and more.
         </p>
       </section>
 
