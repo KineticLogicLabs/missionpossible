@@ -23,7 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-gray-200 bg-white/70 backdrop-blur-md px-6 h-20 lg:h-24 transition-all shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-gray-200 bg-white/70 backdrop-blur-md px-6 h-16 lg:h-20 transition-all shadow-sm">
       <div className="absolute inset-0 bg-graph-paper opacity-30 z-0 pointer-events-none"></div>
       <div className="max-w-7xl mx-auto h-full flex items-center justify-between relative z-10">
         {/* Logo */}

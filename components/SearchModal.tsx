@@ -149,7 +149,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ onClose }) => {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: '-100%', opacity: 0 }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 h-20 lg:h-24 bg-white border-b border-gray-100 z-[195] pointer-events-auto shadow-sm"
+        className="fixed top-0 left-0 right-0 h-16 lg:h-20 bg-white border-b border-gray-100 z-[195] pointer-events-auto shadow-sm"
       >
         <div className="absolute inset-0 bg-graph-paper opacity-30 z-0 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto h-full flex items-center justify-between px-6 md:px-8 relative z-10 gap-x-4">
@@ -195,7 +195,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ onClose }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="absolute top-20 lg:top-24 left-0 right-0 bg-white border-b border-gray-200 shadow-md pointer-events-auto z-[195]"
+            className="absolute top-16 lg:top-20 left-0 right-0 bg-white border-b border-gray-200 shadow-md pointer-events-auto z-[195]"
           >
             <div className="max-w-7xl mx-auto px-6 md:px-8 py-2">
               {activeItems.length > 0 ? (

@@ -122,7 +122,7 @@ const AppContent: React.FC = () => {
         showCart={shouldShowNavbarCart}
       />
       
-      <main className="flex-grow pt-24 md:pt-36">
+      <main className="flex-grow pt-20 md:pt-28">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/resources" element={<Resources />} />
