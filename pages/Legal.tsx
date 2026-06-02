@@ -116,9 +116,7 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
 
       <div className="pt-12 border-t border-gray-200 reveal">
         <p className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#333333] opacity-60 flex items-center gap-3">
-          <span>© {new Date().getFullYear()} Kinetic Logic</span>
-          <span className="opacity-50">|</span>
-          <span>Legal Division</span>
+          <span>© {new Date().getFullYear()} Kinetic Logic Labs</span>
         </p>
       </div>
     </div>

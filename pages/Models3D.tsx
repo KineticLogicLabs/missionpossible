@@ -62,7 +62,7 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
           3D <span className="text-primary border-b-[6px] border-primary/20 pb-2 inline-block leading-none">Designs</span>
         </h1>
         <p className="text-[#333333] opacity-80 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-normal pt-4">
-          The 3D models printed and used on our award-winning Mission Possible Machine. Designed by Ziyao Xu using Fusion.
+          The 3D models printed and used on our award-winning Mission Possible Device. Designed by Ziyao Xu using Fusion.
         </p>
       </div>
 

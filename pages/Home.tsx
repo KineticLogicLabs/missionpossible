@@ -152,7 +152,8 @@ const Home: React.FC = () => {
               <img 
                 src={imageAward1} 
                 alt="Washington State Champion Gold Medal / Trophy" 
-                className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500 rounded-sm relative z-10"
+                className="h-full object-cover group-hover:scale-102 transition-transform duration-500 rounded-sm relative z-10"
+                style={{ width: '800px' }}
                 referrerPolicy="no-referrer"
               />
             </div>

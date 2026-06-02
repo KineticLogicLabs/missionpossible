@@ -18,7 +18,7 @@ const SEARCH_INDEX: SearchItem[] = [
   // General Pages
   { id: 'page-home', title: 'Home', category: 'pages', path: '/' },
   { id: 'page-about', title: 'About', category: 'pages', path: '/about' },
-  { id: 'page-resources', title: 'Roadmap Index', category: 'pages', path: '/resources' },
+  { id: 'page-resources', title: 'Engineering Resources', category: 'pages', path: '/resources' },
   { id: 'page-models', title: '3D Designs Catalog', category: 'pages', path: '/models' },
 
   // 3D Models
@@ -26,35 +26,32 @@ const SEARCH_INDEX: SearchItem[] = [
   { id: 'model-timing', title: 'Timing Masterclass Guide', category: 'models', path: '/models' },
   { id: 'model-assembly', title: 'Full Mission Assembly', category: 'models', path: '/models' },
 
-  // Resources - Phase 1
+  // Resources - Section 1: Planning
   { id: 'res-rulebook', title: 'Rulebook Decoder', category: 'resources', path: '/resources?phase=1&section=rulebook', state: { phaseId: 1, sectionId: 'rulebook' } },
   { id: 'res-points', title: 'Points Matrix', category: 'resources', path: '/resources?phase=1&section=points', state: { phaseId: 1, sectionId: 'points' } },
   { id: 'res-action', title: 'Action Selection Guide', category: 'resources', path: '/resources?phase=1&section=action', state: { phaseId: 1, sectionId: 'action' } },
-  { id: 'res-roadmap', title: 'Season Roadmap', category: 'resources', path: '/resources?phase=1&section=roadmap', state: { phaseId: 1, sectionId: 'roadmap' } },
 
-  // Resources - Phase 2
+  // Resources - Section 2: Design
   { id: 'res-zoning', title: 'Spatial Zoning Design', category: 'resources', path: '/resources?phase=2&section=zoning', state: { phaseId: 2, sectionId: 'zoning' } },
-  { id: 'res-frame', title: 'Frame Fundamentals', category: 'resources', path: '/resources?phase=2&section=frame', state: { phaseId: 2, sectionId: 'frame' } },
   { id: 'res-path', title: 'Path of Travel Physics', category: 'resources', path: '/resources?phase=2&section=path', state: { phaseId: 2, sectionId: 'path' } },
-  { id: 'res-cable', title: 'Cable Management Protocols', category: 'resources', path: '/resources?phase=2&section=cable', state: { phaseId: 2, sectionId: 'cable' } },
+  { id: 'res-cad', title: 'CAD to Physical', category: 'resources', path: '/resources?phase=2&section=cad', state: { phaseId: 2, sectionId: 'cad' } },
+  { id: 'res-tolerances', title: 'Tolerances and Fit Calculations', category: 'resources', path: '/resources?phase=2&section=tolerances', state: { phaseId: 2, sectionId: 'tolerances' } },
 
-  // Resources - Phase 3
-  { id: 'res-cad', title: 'CAD to Physical', category: 'resources', path: '/resources?phase=3&section=cad', state: { phaseId: 3, sectionId: 'cad' } },
-  { id: 'res-tolerances', title: 'Tolerances and Fit Calculations', category: 'resources', path: '/resources?phase=3&section=tolerances', state: { phaseId: 3, sectionId: 'tolerances' } },
+  // Resources - Section 3: Construction
+  { id: 'res-frame', title: 'Frame Fundamentals', category: 'resources', path: '/resources?phase=3&section=frame', state: { phaseId: 3, sectionId: 'frame' } },
   { id: 'res-bambu', title: 'Bambu P1S Optimization Settings', category: 'resources', path: '/resources?phase=3&section=bambu', state: { phaseId: 3, sectionId: 'bambu' } },
+  { id: 'res-cable', title: 'Cable Management Protocols', category: 'resources', path: '/resources?phase=3&section=cable', state: { phaseId: 3, sectionId: 'cable' } },
   { id: 'res-hardware', title: 'Hardware Integration Spec', category: 'resources', path: '/resources?phase=3&section=hardware', state: { phaseId: 3, sectionId: 'hardware' } },
 
-  // Resources - Phase 4
+  // Resources - Section 4: Competition
   { id: 'res-buffers', title: 'Timing Buffers Calibration', category: 'resources', path: '/resources?phase=4&section=buffers', state: { phaseId: 4, sectionId: 'buffers' } },
   { id: 'res-logs', title: 'Calibration Logs Database', category: 'resources', path: '/resources?phase=4&section=logs', state: { phaseId: 4, sectionId: 'logs' } },
   { id: 'res-troubleshooting', title: 'Troubleshooting Flowcharts', category: 'resources', path: '/resources?phase=4&section=troubleshooting', state: { phaseId: 4, sectionId: 'troubleshooting' } },
   { id: 'res-environmental', title: 'Environmental Adjustments', category: 'resources', path: '/resources?phase=4&section=environmental', state: { phaseId: 4, sectionId: 'environmental' } },
-
-  // Resources - Phase 5
-  { id: 'res-tsl', title: 'TSL Technical Score Log', category: 'resources', path: '/resources?phase=5&section=tsl', state: { phaseId: 5, sectionId: 'tsl' } },
-  { id: 'res-reset', title: '2-Minute Reset Practices', category: 'resources', path: '/resources?phase=5&section=reset', state: { phaseId: 5, sectionId: 'reset' } },
-  { id: 'res-pit', title: 'The Pit Kit Checklist', category: 'resources', path: '/resources?phase=5&section=pit', state: { phaseId: 5, sectionId: 'pit' } },
-  { id: 'res-impound', title: 'Impound Survival Guide', category: 'resources', path: '/resources?phase=5&section=impound', state: { phaseId: 5, sectionId: 'impound' } }
+  { id: 'res-tsl', title: 'TSL Technical Score Log', category: 'resources', path: '/resources?phase=4&section=tsl', state: { phaseId: 4, sectionId: 'tsl' } },
+  { id: 'res-reset', title: '2-Minute Reset Practices', category: 'resources', path: '/resources?phase=4&section=reset', state: { phaseId: 4, sectionId: 'reset' } },
+  { id: 'res-pit', title: 'The Pit Kit Checklist', category: 'resources', path: '/resources?phase=4&section=pit', state: { phaseId: 4, sectionId: 'pit' } },
+  { id: 'res-impound', title: 'Impound Survival Guide', category: 'resources', path: '/resources?phase=4&section=impound', state: { phaseId: 4, sectionId: 'impound' } }
 ];
 
 interface SearchModalProps {

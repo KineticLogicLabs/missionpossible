@@ -32,7 +32,7 @@ const EngineeringNote: React.FC<{ children: React.ReactNode }> = ({ children }) 
 const PHASES: Phase[] = [
   {
     id: 1,
-    title: 'Strategy',
+    title: 'Planning',
     icon: 'insights',
     sections: [
       {
@@ -96,12 +96,11 @@ const PHASES: Phase[] = [
         )
       },
       { id: 'action', title: 'Action Selection', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Choose actions that you can replicate 100 times without failure. Complexity is the enemy of reliability.</p> },
-      { id: 'roadmap', title: 'Season Roadmap', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Week 1-2: Prototyping. Week 3-4: Frame Construction. Week 5-8: Integration and Testing.</p> },
     ]
   },
   {
     id: 2,
-    title: 'Architecture',
+    title: 'Design',
     icon: 'architecture',
     sections: [
       { id: 'zoning', title: 'Spatial Zoning', content: (
@@ -112,16 +111,7 @@ const PHASES: Phase[] = [
             </EngineeringNote>
           </div>
         ) },
-      { id: 'frame', title: 'Frame Fundamentals', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Use T-slot aluminum or 1/2" plywood. Rigidity is non-negotiable for timing consistency.</p> },
       { id: 'path', title: 'Path of Travel', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Map out the flow of energy. Avoid crossing paths to prevent accidental triggers.</p> },
-      { id: 'cable', title: 'Cable Management', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Use zip ties and labels. A messy machine is a machine that fails during impound.</p> },
-    ]
-  },
-  {
-    id: 3,
-    title: 'Fabrication',
-    icon: 'precision_manufacturing',
-    sections: [
       { id: 'cad', title: 'CAD to Physical', content: (
           <div className="space-y-6">
             <p className="font-normal text-[#333333] opacity-80 text-lg">Model everything in Onshape or Fusion 360 before cutting. Measure twice, print once.</p>
@@ -131,14 +121,23 @@ const PHASES: Phase[] = [
           </div>
         ) },
       { id: 'tolerances', title: 'Tolerances and Fit', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Account for 3D print shrinkage. Use 0.2mm clearance for moving parts.</p> },
+    ]
+  },
+  {
+    id: 3,
+    title: 'Construction',
+    icon: 'precision_manufacturing',
+    sections: [
+      { id: 'frame', title: 'Frame Fundamentals', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Use T-slot aluminum or 1/2" plywood. Rigidity is non-negotiable for timing consistency.</p> },
       { id: 'bambu', title: 'Bambu P1S Optimization', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Use PETG for structural parts. 4 walls, 20% gyroid infill for maximum strength-to-weight.</p> },
+      { id: 'cable', title: 'Cable Management', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Use zip ties and labels. A messy machine is a machine that fails during impound.</p> },
       { id: 'hardware', title: 'Hardware Integration', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Standardize on M3 and M4 bolts. Keep a kit of spares in your pit box.</p> },
     ]
   },
   {
     id: 4,
-    title: 'Reliability',
-    icon: 'verified',
+    title: 'Competition',
+    icon: 'emoji_events',
     sections: [
       { id: 'buffers', title: 'Timing Buffers', content: (
           <div className="space-y-6">
@@ -151,13 +150,6 @@ const PHASES: Phase[] = [
       { id: 'logs', title: 'Calibration Logs', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Record every run. Note temperature and humidity—they affect friction more than you think.</p> },
       { id: 'troubleshooting', title: 'Troubleshooting Flowcharts', content: <p className="font-normal text-[#333333] opacity-80 text-lg">If Step A fails, check Trigger B. Create a "If-Then" guide for your team.</p> },
       { id: 'environmental', title: 'Environmental Adjustments', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Be ready for the competition floor. It might be uneven or drafty.</p> },
-    ]
-  },
-  {
-    id: 5,
-    title: 'Competition',
-    icon: 'emoji_events',
-    sections: [
       { id: 'tsl', title: 'TSL Mastery', content: <p className="font-normal text-[#333333] opacity-80 text-lg">The Technical Score Log is half the battle. Use our automated generator to ensure 0 penalties.</p> },
       { id: 'reset', title: '2-Minute Reset', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Practice resetting your machine under pressure. Use a checklist to ensure no steps are skipped.</p> },
       { id: 'pit', title: 'The Pit Kit', content: <p className="font-normal text-[#333333] opacity-80 text-lg">Superglue, duct tape, extra batteries, and a soldering iron. If it can break, it will.</p> },
@@ -198,7 +190,7 @@ const Resources: React.FC = () => {
     
     if (phaseParam) {
       const phaseId = parseInt(phaseParam, 10);
-      if (!isNaN(phaseId) && phaseId >= 1 && phaseId <= 5) {
+      if (!isNaN(phaseId) && phaseId >= 1 && phaseId <= 4) {
         setActivePhaseId(phaseId);
 
         if (sectionParam) {
@@ -224,21 +216,20 @@ const Resources: React.FC = () => {
     return (
       <div className="px-6 py-12 max-w-6xl mx-auto pb-40 relative z-10">
         <div className="mb-20 text-center reveal border-b border-gray-200 pb-12">
-            <div className="flex justify-center mb-6">
-                <span className="font-mono text-primary text-[10px] tracking-[0.2em] uppercase border border-primary/20 px-3 py-1 rounded bg-primary/5">
-                    Resource Index
-                </span>
-            </div>
+          <div className="flex justify-center mb-6">
+            <span className="font-mono text-primary text-[10px] tracking-[0.2em] uppercase border border-primary/20 px-3 py-1 rounded bg-primary/5">
+              Resource Index
+            </span>
+          </div>
           <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-wide uppercase mb-6 text-[#333333]">
-            The <span className="text-primary border-b-[6px] border-primary/20 pb-2 inline-block leading-none">Roadmap</span>
+            Engineering <span className="text-primary border-b-[6px] border-primary/20 pb-2 inline-block leading-none">Resources</span>
           </h1>
           <p className="text-[#333333] opacity-80 text-lg md:text-xl font-normal max-w-2xl mx-auto leading-relaxed pt-4">
-            A phase-based engineering framework for Science Olympiad Mission Possible. 
-            Select a phase to enter the lab.
+            Structured resources for Science Olympiad Mission Possible. Select a section to explore guidelines and blueprints.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal reveal-delay-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto reveal reveal-delay-1">
           {PHASES.map((phase) => (
             <button
               key={phase.id}
@@ -250,22 +241,21 @@ const Resources: React.FC = () => {
                 <span className="material-icons text-8xl">{phase.icon}</span>
               </div>
               <div className="relative z-10 flex-grow">
-                <span className="font-mono text-primary font-bold text-[10px] uppercase tracking-widest mb-4 inline-block border border-primary/20 bg-primary/5 px-2 py-1 rounded-sm">Phase 0{phase.id}</span>
+                <span className="font-mono text-primary font-bold text-[10px] uppercase tracking-widest mb-4 inline-block border border-primary/20 bg-primary/5 px-2 py-1 rounded-sm">Section 0{phase.id}</span>
                 <h3 className="text-2xl font-serif font-bold mb-4 text-[#333333] group-hover:text-primary transition-colors tracking-wide uppercase">{phase.title}</h3>
                 <div className="space-y-2 mb-8">
                   {phase.sections.map(s => (
-                      <p key={s.id} className="text-[#333333] opacity-70 text-[11px] font-mono leading-relaxed truncate tracking-widest flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 bg-primary/50 rounded-sm"></span> {s.title}
-                      </p>
+                    <p key={s.id} className="text-[#333333] opacity-70 text-[11px] font-mono leading-relaxed truncate tracking-widest flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-primary/50 rounded-sm"></span> {s.title}
+                    </p>
                   ))}
                 </div>
               </div>
               <div className="flex items-center gap-2 text-primary font-mono text-[10px] font-bold uppercase tracking-widest mt-auto group-hover:tracking-[0.2em] transition-all">
-                Initialize Phase <span className="material-icons text-[14px]">arrow_forward</span>
+                Explore Section <span className="material-icons text-[14px]">arrow_forward</span>
               </div>
             </button>
           ))}
-          
         </div>
       </div>
     );
@@ -273,33 +263,33 @@ const Resources: React.FC = () => {
 
   return (
     <div className="px-6 py-12 max-w-4xl mx-auto relative z-10">
-        <button 
-          onClick={() => setActivePhaseId(null)}
-          className="flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-wider text-[#333333] hover:text-primary mb-12 transition-colors border border-gray-200 px-4 py-2 bg-white rounded-sm shadow-sm"
-        >
-          <span className="material-icons text-[16px]">arrow_back</span>
-          Back to Index
-        </button>
+      <button 
+        onClick={() => setActivePhaseId(null)}
+        className="flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-wider text-[#333333] hover:text-primary mb-12 transition-colors border border-gray-200 px-4 py-2 bg-white rounded-sm shadow-sm"
+      >
+        <span className="material-icons text-[16px]">arrow_back</span>
+        Back to Index
+      </button>
 
-        <div className="mb-20 border-b border-gray-200 pb-12">
-          <span className="font-mono text-primary font-bold text-[10px] uppercase tracking-widest mb-4 inline-block border border-primary/20 bg-primary/5 px-2 py-1 rounded-sm">Phase 0{activePhase.id}</span>
-          <h1 className="text-5xl md:text-6xl lg:text-[80px] font-serif font-bold tracking-wide uppercase text-[#333333] mb-6">
-            {activePhase.title}
-          </h1>
-        </div>
+      <div className="mb-20 border-b border-gray-200 pb-12">
+        <span className="font-mono text-primary font-bold text-[10px] uppercase tracking-widest mb-4 inline-block border border-primary/20 bg-primary/5 px-2 py-1 rounded-sm">Section 0{activePhase.id}</span>
+        <h1 className="text-5xl md:text-6xl lg:text-[80px] font-serif font-bold tracking-wide uppercase text-[#333333] mb-6">
+          {activePhase.title}
+        </h1>
+      </div>
 
-        <div className="space-y-24 pb-40">
-          {activePhase.sections.map((section) => (
-            <section key={section.id} id={section.id} className="reveal">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-[#333333] tracking-wide uppercase border-l-4 border-primary pl-4">
-                {section.title}
-              </h2>
-              <div className="pl-5">
-                {section.content}
-              </div>
-            </section>
-          ))}
-        </div>
+      <div className="space-y-24 pb-40">
+        {activePhase.sections.map((section) => (
+          <section key={section.id} id={section.id} className="reveal">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8 text-[#333333] tracking-wide uppercase border-l-4 border-primary pl-4">
+              {section.title}
+            </h2>
+            <div className="pl-5">
+              {section.content}
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
   );
 };
