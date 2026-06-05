@@ -82,17 +82,18 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
           </button>
 
           {showCart && cartCount > 0 && (
-            <Link 
-              to="/checkout"
-              className="relative p-1 text-primary transition-colors flex items-center gap-1 active:scale-95"
-            >
-              <span className="material-icons text-[18px]">shopping_cart</span>
-              <span className="font-mono text-[10px] font-bold">[{cartCount}]</span>
-            </Link>
+            <>
+              <Link 
+                to="/checkout"
+                className="relative p-1 text-primary transition-colors flex items-center gap-1 active:scale-95"
+              >
+                <span className="material-icons text-[18px]">shopping_cart</span>
+                <span className="font-mono text-[10px] font-bold">[{cartCount}]</span>
+              </Link>
+              {/* Elegant Divider */}
+              <div className="h-5 w-[1px] bg-gray-200 self-center mx-1" />
+            </>
           )}
-
-          {/* Elegant Divider */}
-          <div className="h-5 w-[1px] bg-gray-200 self-center mx-1" />
           
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
