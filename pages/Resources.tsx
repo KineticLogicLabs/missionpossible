@@ -165,51 +165,79 @@ const Resources: React.FC = () => {
 
   // Handle deep-linking from search query or route state
   useEffect(() => {
-    // 1. Try route state (passed if navigated via react-router search select)
-    if (location.state) {
-      const state = location.state as { phaseId?: number, sectionId?: string };
-      if (state.phaseId) {
-        setActivePhaseId(state.phaseId);
-
-        if (state.sectionId) {
-          setTimeout(() => {
-            const el = document.getElementById(state.sectionId!);
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }, 300);
-        }
-        return;
-      }
-    }
-
-    // 2. Fallback: Parse URL search query params
-    const searchParams = new URLSearchParams(location.search);
-    const phaseParam = searchParams.get('phase');
-    const sectionParam = searchParams.get('section');
-    
-    if (phaseParam) {
-      const phaseId = parseInt(phaseParam, 10);
-      if (!isNaN(phaseId) && phaseId >= 1 && phaseId <= 4) {
-        setActivePhaseId(phaseId);
-
-        if (sectionParam) {
-          setTimeout(() => {
-            const el = document.getElementById(sectionParam);
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }, 300);
+    const handleUrlParsing = () => {
+      const hashVal = window.location.hash;
+      const parts = hashVal.split('/#/');
+      const subpage = parts[1]; // e.g. "phase-1", "phase-2", "phase-3", "phase-4", "overview"
+      
+      // 1. Check if we have subpage parameter
+      if (subpage) {
+        if (subpage.startsWith('phase-')) {
+          const phaseNum = parseInt(subpage.replace('phase-', ''), 10);
+          if (!isNaN(phaseNum) && phaseNum >= 1 && phaseNum <= 4) {
+            setActivePhaseId(phaseNum);
+            return;
+          }
+        } else if (subpage === 'overview') {
+          setActivePhaseId(null);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
         }
       }
-    }
+
+      // 2. Try route state (passed if navigated via react-router search select)
+      if (location.state) {
+        const state = location.state as { phaseId?: number, sectionId?: string };
+        if (state.phaseId) {
+          setActivePhaseId(state.phaseId);
+
+          if (state.sectionId) {
+            setTimeout(() => {
+              const el = document.getElementById(state.sectionId!);
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }, 300);
+          }
+          return;
+        }
+      }
+
+      // 3. Fallback: Parse URL search query params
+      const searchParams = new URLSearchParams(location.search);
+      const phaseParam = searchParams.get('phase');
+      const sectionParam = searchParams.get('section');
+      
+      if (phaseParam) {
+        const phaseId = parseInt(phaseParam, 10);
+        if (!isNaN(phaseId) && phaseId >= 1 && phaseId <= 4) {
+          setActivePhaseId(phaseId);
+
+          if (sectionParam) {
+            setTimeout(() => {
+              const el = document.getElementById(sectionParam);
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }, 300);
+          }
+        }
+      } else {
+        if (!subpage) {
+          setActivePhaseId(null);
+        }
+      }
+    };
+
+    handleUrlParsing();
+    window.addEventListener('hashchange', handleUrlParsing);
+    return () => window.removeEventListener('hashchange', handleUrlParsing);
   }, [location]);
 
   const activePhase = PHASES.find(p => p.id === activePhaseId);
 
   const handlePhaseSelect = (id: number) => {
-    setActivePhaseId(id);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(`/resources/#/phase-${id}`);
   };
 
   if (!activePhaseId) {
@@ -264,7 +292,7 @@ const Resources: React.FC = () => {
   return (
     <div className="px-6 py-12 max-w-4xl mx-auto relative z-10">
       <button 
-        onClick={() => setActivePhaseId(null)}
+        onClick={() => navigate('/resources/#/overview')}
         className="flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-wider text-[#333333] hover:text-primary mb-12 transition-colors border border-gray-200 px-4 py-2 bg-white rounded-sm shadow-sm"
       >
         <span className="material-icons text-[16px]">arrow_back</span>

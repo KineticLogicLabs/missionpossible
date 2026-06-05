@@ -16,10 +16,42 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Home', path: '/' },
-    { label: 'About', path: '/about' },
-    { label: 'Resources', path: '/resources' },
-    { label: '3D Models', path: '/models' },
+    { 
+      label: 'Home', 
+      path: '/'
+    },
+    { 
+      label: 'About', 
+      path: '/about',
+      subLinks: [
+        { label: 'Inbound Overview', path: '/about/#/overview' },
+        { label: 'Technical Brief', path: '/about/#/guide' },
+        { label: 'The Creator', path: '/about/#/creator' },
+        { label: 'Our Philosophy', path: '/about/#/philosophy' }
+      ]
+    },
+    { 
+      label: 'Resources', 
+      path: '/resources',
+      subLinks: [
+        { label: 'Index Overview', path: '/resources/#/overview' },
+        { label: 'Planning (Section 01)', path: '/resources/#/phase-1' },
+        { label: 'Design (Section 02)', path: '/resources/#/phase-2' },
+        { label: 'Construction (Section 03)', path: '/resources/#/phase-3' },
+        { label: 'Competition (Section 04)', path: '/resources/#/phase-4' }
+      ]
+    },
+    { 
+      label: '3D Models', 
+      path: '/models',
+      subLinks: [
+        { label: 'All Schematics', path: '/models/#/overview' },
+        { label: 'Universal Gearbox V2', path: '/models/#/p1' },
+        { label: 'Timing Masterclass', path: '/models/#/p2' },
+        { label: 'Full Mission Assembly', path: '/models/#/p3' },
+        { label: 'Why Additive?', path: '/models/#/advantages' }
+      ]
+    },
   ];
 
   return (
@@ -33,21 +65,39 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
         >
           <Logo className="h-9 md:h-10 lg:h-11 w-auto" />
         </Link>
-
+ 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6 lg:gap-10 px-2 h-full">
           {navLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              className={({ isActive }) => `text-xs uppercase font-sans font-semibold tracking-wider transition-colors border-b-2 pt-1 pb-1 flex items-center ${
-                isActive 
-                  ? 'text-primary border-primary' 
-                  : 'text-[#333333] border-transparent hover:text-primary'
-              }`}
-            >
-              {link.label}
-            </NavLink>
+            <div key={link.path} className="relative group/nav h-full flex items-center">
+              <NavLink
+                to={link.path}
+                className={({ isActive }) => `text-xs uppercase font-sans font-semibold tracking-wider transition-colors border-b-2 pb-0.5 flex items-center ${
+                  isActive 
+                    ? 'text-primary border-primary' 
+                    : 'text-[#333333] border-transparent hover:text-primary'
+                }`}
+              >
+                {link.label}
+              </NavLink>
+
+              {link.subLinks && (
+                <div className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-1 w-56 bg-white border border-gray-200 shadow-lg rounded-sm py-2 opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all duration-200 origin-top pointer-events-auto z-[150] translate-y-2 group-hover/nav:translate-y-0">
+                  <div className="absolute inset-0 bg-graph-paper opacity-10 z-0 pointer-events-none"></div>
+                  <div className="relative z-10 flex flex-col">
+                    {link.subLinks.map((sub) => (
+                      <Link
+                        key={sub.path}
+                        to={sub.path}
+                        className="px-4 py-2.5 text-left font-sans text-[10px] font-bold tracking-wider uppercase text-[#333333] hover:text-primary hover:bg-gray-50 transition-colors border-b last:border-0 border-gray-105"
+                      >
+                        {sub.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           ))}
           
           <div className="flex items-center gap-4 pl-4 ml-2 border-l border-gray-200 h-6">
@@ -58,7 +108,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
             >
               <Search className="w-4 h-4" />
             </button>
-
+ 
             {showCart && cartCount > 0 && (
               <Link 
                 to="/checkout"
@@ -130,16 +180,32 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.15 + (idx * 0.05) }}
+                  className="border-b border-gray-100 pb-4 last:border-0"
                 >
                   <NavLink
                     to={link.path}
                     onClick={() => setIsMenuOpen(false)}
-                    className={({ isActive }) => `text-sm font-sans font-semibold tracking-wider text-left uppercase transition-colors pb-4 border-b border-gray-200 last:border-0 block w-full ${
+                    className={({ isActive }) => `text-sm font-sans font-bold tracking-wider text-left uppercase transition-colors block w-full ${
                       isActive ? 'text-primary' : 'text-[#333333] hover:text-primary'
                     }`}
                   >
                     {link.label}
                   </NavLink>
+
+                  {link.subLinks && (
+                    <div className="mt-3 ml-3 pl-3 border-l border-gray-200 flex flex-col gap-2.5">
+                      {link.subLinks.map((sub) => (
+                        <Link
+                          key={sub.path}
+                          to={sub.path}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="text-[10px] font-sans font-semibold tracking-wider uppercase text-[#333333]/70 hover:text-primary transition-colors py-0.5"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </motion.div>

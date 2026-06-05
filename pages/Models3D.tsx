@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ShoppingCart, X, Compass, Zap, Printer, RotateCw } from 'lucide-react';
 import { Resource } from '../types';
 
@@ -67,6 +68,54 @@ interface Models3DProps {
 const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
   const [activeIndex, setActiveIndex] = useState<number>(1);
   const [selectedModel, setSelectedModel] = useState<Resource | null>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleUrlParsing = () => {
+      const hashVal = window.location.hash;
+      const parts = hashVal.split('/#/');
+      const subpage = parts[1]; // e.g. "p1", "p2", "p3", "advantages", "overview"
+      
+      if (subpage) {
+        if (subpage === 'advantages') {
+          setSelectedModel(null);
+          setTimeout(() => {
+            const el = document.getElementById('advantages');
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 150);
+        } else if (subpage === 'overview') {
+          setSelectedModel(null);
+        } else {
+          const idx = MODELS_3D.findIndex(m => m.id === subpage);
+          if (idx !== -1) {
+            setActiveIndex(idx);
+            setSelectedModel(MODELS_3D[idx]);
+          }
+        }
+        return;
+      }
+      
+      // Fallback
+      const params = new URLSearchParams(location.search);
+      const modelParam = params.get('model');
+      if (modelParam) {
+        const idx = MODELS_3D.findIndex(m => m.id === modelParam);
+        if (idx !== -1) {
+          setActiveIndex(idx);
+          setSelectedModel(MODELS_3D[idx]);
+        }
+      } else {
+        setSelectedModel(null);
+      }
+    };
+
+    handleUrlParsing();
+    window.addEventListener('hashchange', handleUrlParsing);
+    return () => window.removeEventListener('hashchange', handleUrlParsing);
+  }, [location]);
 
   const getOffset = (idx: number) => {
     return idx - activeIndex;
@@ -188,7 +237,7 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        setSelectedModel(item);
+                        navigate('/models/#/' + item.id);
                       }}
                       className="w-full py-3 bg-primary hover:bg-blue-600 text-white font-sans text-xs font-bold tracking-wider uppercase rounded-sm flex items-center justify-center gap-2 transform active:scale-98 transition-all shadow-sm border border-primary cursor-pointer"
                     >
@@ -261,7 +310,7 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
       </div>
 
       {/* Why use 3D Printing for Mission Possible? */}
-      <section className="mt-32 border border-gray-200 bg-white rounded-sm p-8 md:p-12 relative overflow-hidden shadow-sm">
+      <section id="advantages" className="mt-32 border border-gray-200 bg-white rounded-sm p-8 md:p-12 relative overflow-hidden shadow-sm">
         <div className="absolute inset-0 bg-graph-paper opacity-30 pointer-events-none"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <div className="text-center mb-16">
@@ -336,13 +385,13 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-[#333333]/80 backdrop-blur-sm transition-opacity"
-            onClick={() => setSelectedModel(null)}
+            onClick={() => navigate('/models/#/overview')}
           />
           
           {/* Modal Container */}
           <div className="bg-white border border-gray-200 rounded-sm shadow-2xl relative max-w-2xl w-full z-10 overflow-hidden text-left flex flex-col md:flex-row max-h-[85vh]">
             <button 
-              onClick={() => setSelectedModel(null)}
+              onClick={() => navigate('/models/#/overview')}
               className="absolute top-4 right-4 z-20 bg-white/90 hover:bg-white text-[#333333] hover:text-primary p-1.5 rounded-full border border-gray-100 shadow-sm transition-all active:scale-95 cursor-pointer"
               aria-label="Close details"
             >
@@ -400,7 +449,7 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
                 <button 
                   onClick={() => {
                     onAddToCart(selectedModel);
-                    setSelectedModel(null);
+                    navigate('/models/#/overview');
                   }}
                   className="px-6 py-3 bg-primary hover:bg-blue-600 text-white font-sans text-xs font-bold tracking-wider uppercase rounded-sm flex items-center gap-2 transform active:scale-98 transition-all shadow-sm cursor-pointer"
                 >

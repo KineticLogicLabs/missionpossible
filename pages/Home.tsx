@@ -122,7 +122,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Championship Accolades - Moved under Hero Section */}
-      <section className="mb-32 py-16">
+      <section id="performance" className="mb-32 py-16">
         <div className="text-center mb-16 reveal">
           <h2 className="text-3xl md:text-5xl font-serif font-bold text-[#333333] uppercase tracking-wide">
             Proven Performance
@@ -208,7 +208,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Logic Modules Grid */}
-      <section className="mb-32 relative z-10">
+      <section id="featured" className="mb-32 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 space-y-4 reveal border-b border-gray-200 pb-6">
           <div className="space-y-4">
             <h2 className="font-serif text-3xl md:text-4xl font-bold tracking-wide text-[#333333] uppercase">
@@ -255,7 +255,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="text-center py-24 bg-white border border-gray-200 shadow-sm reveal mt-32 relative overflow-hidden rounded-sm">
+      <section id="get-started" className="text-center py-24 bg-white border border-gray-200 shadow-sm reveal mt-32 relative overflow-hidden rounded-sm">
         <div className="absolute inset-0 bg-graph-paper opacity-30 pointer-events-none z-0"></div>
         <div className="relative z-10 max-w-2xl mx-auto px-6">
             <h2 className="text-3xl md:text-5xl font-serif font-bold mb-8 tracking-wide text-[#333333] uppercase">Refine your logic today.</h2>

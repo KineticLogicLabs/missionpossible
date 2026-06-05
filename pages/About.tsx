@@ -1,16 +1,48 @@
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const About: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [showDetailedGuide, setShowDetailedGuide] = useState(false);
+
+  useEffect(() => {
+    const handleUrlParsing = () => {
+      const hashVal = window.location.hash;
+      const parts = hashVal.split('/#/');
+      const subpage = parts[1]; // e.g. "guide", "creator", "philosophy", "overview"
+
+      const params = new URLSearchParams(location.search);
+      const hasGuideQuery = params.get('guide') === 'true' || params.get('brief') === 'true';
+
+      if (subpage === 'guide' || hasGuideQuery) {
+        setShowDetailedGuide(true);
+      } else {
+        setShowDetailedGuide(false);
+        if (subpage === 'creator' || subpage === 'philosophy') {
+          setTimeout(() => {
+            const el = document.getElementById(subpage);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 150);
+        } else if (subpage === 'overview') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+    };
+
+    handleUrlParsing();
+    window.addEventListener('hashchange', handleUrlParsing);
+    return () => window.removeEventListener('hashchange', handleUrlParsing);
+  }, [location]);
   
   if (showDetailedGuide) {
     return (
       <div className="px-6 py-12 max-w-4xl mx-auto pb-40 relative z-10 animate-fade-in">
         <button 
-          onClick={() => setShowDetailedGuide(false)}
+          onClick={() => navigate('/about/#/overview')}
           className="flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-wider text-[#333333] hover:text-primary mb-12 transition-colors border border-gray-200 px-4 py-2 bg-white rounded-sm shadow-sm"
         >
           <span className="material-icons text-[16px]">arrow_back</span>
@@ -79,7 +111,7 @@ const About: React.FC = () => {
         </p>
         <div className="mt-8">
           <button 
-            onClick={() => setShowDetailedGuide(true)}
+            onClick={() => navigate('/about/#/guide')}
             className="flex items-center gap-2 px-6 py-3 bg-white text-[#333333] font-sans text-xs font-bold tracking-wider uppercase rounded-sm shadow-sm hover:bg-gray-50 hover:border-gray-300 transition-all border border-gray-200"
           >
             Learn More
@@ -89,7 +121,7 @@ const About: React.FC = () => {
       </section>
 
       {/* The Creator Section */}
-      <section className="reveal pb-12 border-b border-gray-200 flex flex-col items-end text-right">
+      <section id="creator" className="reveal pb-12 border-b border-gray-200 flex flex-col items-end text-right">
         <div className="max-w-2xl space-y-6">
           <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#333333] uppercase leading-none tracking-wide">
             The Creator
@@ -113,7 +145,7 @@ const About: React.FC = () => {
       </section>
 
       {/* Philosophy Section */}
-      <section className="reveal py-24 border-y border-gray-200 bg-white relative overflow-hidden text-center shadow-sm rounded-sm">
+      <section id="philosophy" className="reveal py-24 border-y border-gray-200 bg-white relative overflow-hidden text-center shadow-sm rounded-sm">
         <div className="absolute inset-0 bg-graph-paper opacity-30 pointer-events-none"></div>
         <div className="relative z-10">
             <h2 className="text-4xl md:text-6xl font-serif font-bold mb-8 tracking-wide text-[#333333] uppercase">Precision over Luck.</h2>
