@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ShoppingCart, X, Compass, Zap, Printer, RotateCw } from 'lucide-react';
 import { Resource } from '../types';
+import { ModelViewer3D } from '../components/ModelViewer3D';
 
 const MODELS_3D: Resource[] = [
   {
@@ -308,6 +309,9 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>
+
+      {/* Dynamic 3D Model Simulation Sandbox */}
+      <ModelViewer3D initialModelId={MODELS_3D[activeIndex]?.id} />
 
       {/* Why use 3D Printing for Mission Possible? */}
       <section id="advantages" className="mt-32 border border-gray-200 bg-white rounded-sm p-8 md:p-12 relative overflow-hidden shadow-sm">
