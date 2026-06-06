@@ -35,21 +35,21 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
       path: '/resources',
       subLinks: [
         { label: 'Index Overview', path: '/resources/#/overview' },
-        { label: 'Planning (Section 01)', path: '/resources/#/phase-1' },
-        { label: 'Design (Section 02)', path: '/resources/#/phase-2' },
-        { label: 'Construction (Section 03)', path: '/resources/#/phase-3' },
-        { label: 'Competition (Section 04)', path: '/resources/#/phase-4' }
+        { label: 'Planning', path: '/resources/#/phase-1' },
+        { label: 'Design', path: '/resources/#/phase-2' },
+        { label: 'Construction', path: '/resources/#/phase-3' },
+        { label: 'Competition', path: '/resources/#/phase-4' }
       ]
     },
     { 
       label: '3D Models', 
       path: '/models',
       subLinks: [
-        { label: 'All Schematics', path: '/models/#/overview' },
-        { label: 'Universal Gearbox V2', path: '/models/#/p1' },
-        { label: 'Timing Masterclass', path: '/models/#/p2' },
-        { label: 'Full Mission Assembly', path: '/models/#/p3' },
-        { label: 'Why Additive?', path: '/models/#/advantages' }
+        { label: 'All Schematics', path: '/models' },
+        { label: 'Universal Gearbox V2', path: '/models/#/universal-gearbox-v2' },
+        { label: 'Timing Masterclass', path: '/models/#/timing-masterclass' },
+        { label: 'Full Mission Assembly', path: '/models/#/full-mission-assembly' },
+        { label: 'Why 3D Print?', path: '/models/#/advantages' }
       ]
     },
   ];
@@ -85,7 +85,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
                 <div className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-1 w-56 bg-white border border-gray-200 shadow-lg rounded-sm py-2 opacity-0 invisible group-hover/nav:opacity-100 group-hover/nav:visible transition-all duration-200 origin-top pointer-events-auto z-[150] translate-y-2 group-hover/nav:translate-y-0">
                   <div className="absolute inset-0 bg-graph-paper opacity-10 z-0 pointer-events-none"></div>
                   <div className="relative z-10 flex flex-col">
-                    {link.subLinks.map((sub) => (
+                    {link.subLinks.slice(1).map((sub) => (
                       <Link
                         key={sub.path}
                         to={sub.path}
@@ -194,7 +194,7 @@ const Navbar: React.FC<NavbarProps> = ({ cartCount, showCart }) => {
 
                   {link.subLinks && (
                     <div className="mt-3 ml-3 pl-3 border-l border-gray-200 flex flex-col gap-2.5">
-                      {link.subLinks.map((sub) => (
+                      {link.subLinks.slice(1).map((sub) => (
                         <Link
                           key={sub.path}
                           to={sub.path}

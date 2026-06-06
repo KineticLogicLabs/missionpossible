@@ -6,7 +6,7 @@ import { Resource } from '../types';
 
 const MODELS_3D: Resource[] = [
   {
-    id: 'p1',
+    id: 'universal-gearbox-v2',
     title: 'Universal Gearbox V2',
     description: 'High-torque ratio design optimized for 3D printing with integrated low-friction bearing mounts.',
     price: 14.99,
@@ -15,7 +15,7 @@ const MODELS_3D: Resource[] = [
     isPremium: true
   },
   {
-    id: 'p2',
+    id: 'timing-masterclass',
     title: 'Timing Masterclass Guide',
     description: 'Complete breakdown of mechanical timing mechanisms for consistent, sub-millisecond success.',
     price: 9.99,
@@ -24,7 +24,7 @@ const MODELS_3D: Resource[] = [
     isPremium: true
   },
   {
-    id: 'p3',
+    id: 'full-mission-assembly',
     title: 'Full Mission Assembly',
     description: 'A complete skeleton assembly to jumpstart your design phase. Editable STEP/SLDASM files.',
     price: 29.99,
@@ -35,7 +35,7 @@ const MODELS_3D: Resource[] = [
 ];
 
 const SPECIFICATIONS: Record<string, { label: string; value: string }[]> = {
-  p1: [
+  'universal-gearbox-v2': [
     { label: 'Gear Ratio', value: '12:1 / 36:1 dual configuration' },
     { label: 'Shaft Compatibility', value: '4mm mechanical steel shafts' },
     { label: 'Bearing Integration', value: 'Requires 4x 608ZZ bearings' },
@@ -43,7 +43,7 @@ const SPECIFICATIONS: Record<string, { label: string; value: string }[]> = {
     { label: 'Optimal Infill', value: '45% Gyroid infill' },
     { label: 'Print Resolution', value: '0.2mm layer height' }
   ],
-  p2: [
+  'timing-masterclass': [
     { label: 'Total Pages', value: '42 high-resolution pages' },
     { label: 'File Type', value: 'Vector PDF with editable charts' },
     { label: 'Trigger Designs', value: '12 unique mechanical triggers' },
@@ -51,7 +51,7 @@ const SPECIFICATIONS: Record<string, { label: string; value: string }[]> = {
     { label: 'Timing Systems', value: 'Sand, water, pendulum friction' },
     { label: 'Target Event', value: 'Science Olympiad Mission Possible' }
   ],
-  p3: [
+  'full-mission-assembly': [
     { label: 'File Formats', value: 'STEP, SLDASM, .3DM, F3D Link' },
     { label: 'Machine Volume', value: 'Fits 60cm x 60cm x 60cm limit' },
     { label: 'Complexity', value: 'Acts as complete master assembly' },
@@ -75,7 +75,7 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
     const handleUrlParsing = () => {
       const hashVal = window.location.hash;
       const parts = hashVal.split('/#/');
-      const subpage = parts[1]; // e.g. "p1", "p2", "p3", "advantages", "overview"
+      const subpage = parts[1]; // e.g. "universal-gearbox-v2", "timing-masterclass", "full-mission-assembly", "advantages", "overview"
       
       if (subpage) {
         if (subpage === 'advantages') {
@@ -385,13 +385,13 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-[#333333]/80 backdrop-blur-sm transition-opacity"
-            onClick={() => navigate('/models/#/overview')}
+            onClick={() => navigate('/models')}
           />
           
           {/* Modal Container */}
           <div className="bg-white border border-gray-200 rounded-sm shadow-2xl relative max-w-2xl w-full z-10 overflow-hidden text-left flex flex-col md:flex-row max-h-[85vh]">
             <button 
-              onClick={() => navigate('/models/#/overview')}
+              onClick={() => navigate('/models')}
               className="absolute top-4 right-4 z-20 bg-white/90 hover:bg-white text-[#333333] hover:text-primary p-1.5 rounded-full border border-gray-100 shadow-sm transition-all active:scale-95 cursor-pointer"
               aria-label="Close details"
             >
@@ -449,7 +449,7 @@ const Models3D: React.FC<Models3DProps> = ({ onAddToCart }) => {
                 <button 
                   onClick={() => {
                     onAddToCart(selectedModel);
-                    navigate('/models/#/overview');
+                    navigate('/models');
                   }}
                   className="px-6 py-3 bg-primary hover:bg-blue-600 text-white font-sans text-xs font-bold tracking-wider uppercase rounded-sm flex items-center gap-2 transform active:scale-98 transition-all shadow-sm cursor-pointer"
                 >
